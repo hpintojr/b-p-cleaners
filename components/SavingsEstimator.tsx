@@ -1,33 +1,50 @@
 'use client';
 
 import React, { useState, useEffect } from 'react';
-import Image from 'next/image';
-import { ArrowRight, Check, AlertCircle, ShieldCheck, PhoneCall, Sparkles, CreditCard, Scale, CheckCircle2, Building2 } from 'lucide-react';
+import {
+  ArrowRight, Check, AlertCircle, ShieldCheck, PhoneCall, Sparkles,
+  Home, Building2, CheckCircle2, Repeat,
+} from 'lucide-react';
 import { analytics } from '@/lib/analytics';
 
+type PropertyType = 'Residential' | 'Commercial';
+type Frequency = 'One-Time' | 'Weekly' | 'Bi-Weekly' | 'Monthly';
+
+const ADDON_OPTIONS = [
+  { id: 'Deep Clean', label: 'Deep Clean', hint: '+$0.10/sqft — baseboards, cabinets, detailed scrub' },
+  { id: 'Move In/Out', label: 'Move In / Move Out', hint: '+$0.15/sqft — full empty-property detail' },
+  { id: 'Inside Fridge', label: 'Inside Fridge', hint: '+$50 flat' },
+  { id: 'Inside Oven', label: 'Inside Oven', hint: '+$50 flat' },
+  { id: 'Interior Windows', label: 'Interior Windows', hint: '+$75 flat' },
+] as const;
+
 interface EstimatorState {
-  debtAmount: number;
   step: 1 | 2 | 3;
+  propertyType: PropertyType;
+  sqft: number;
+  rooms: number;
+  frequency: Frequency;
+  addons: string[];
   fullName: string;
   phone: string;
   email: string;
-  state: string;
   isAgreed: boolean;
-  isCreditAgreed: boolean;
-  programTerm: number;
+  isSmsAgreed: boolean;
 }
 
 export default function SavingsEstimator() {
   const [formData, setFormData] = useState<EstimatorState>({
-    debtAmount: 35000,
     step: 1,
+    propertyType: 'Residential',
+    sqft: 2000,
+    rooms: 3,
+    frequency: 'One-Time',
+    addons: [],
     fullName: '',
     phone: '',
     email: '',
-    state: 'CA',
     isAgreed: true,
-    isCreditAgreed: true,
-    programTerm: 36,
+    isSmsAgreed: true,
   });
 
   const [errors, setErrors] = useState<Record<string, string>>({});
@@ -36,66 +53,85 @@ export default function SavingsEstimator() {
   // Fetch sequential quote ID from server on mount — guarantees no duplicates
   useEffect(() => {
     fetch('/api/generate-quote-id', { method: 'POST' })
-      .then(res => res.json())
-      .then(data => setQuoteId(data.quoteId))
+      .then((res) => res.json())
+      .then((data) => setQuoteId(data.quoteId))
       .catch(() => {
         // Absolute fallback: timestamp-based ID (still unique, just not sequential)
         setQuoteId(Date.now() % 1000000);
       });
   }, []);
 
-  // Calculated estimates
-  const debt = formData.debtAmount;
-  const isLoanEligibleAmount = debt <= 100000;
+  const { propertyType, sqft, rooms, frequency, addons } = formData;
 
-  // Standard amortization helper: P * [r(1+r)^n] / [(1+r)^n - 1]
-  const calcMonthlyPayment = (principal: number, monthlyRate: number, months: number) => {
-    if (monthlyRate === 0) return principal / months;
-    const factor = Math.pow(1 + monthlyRate, months);
-    return principal * (monthlyRate * factor) / (factor - 1);
+  // ── High-end pricing logic ──
+  // Residential $0.20/sqft, Commercial $0.15/sqft base rate.
+  // Deep Clean +$0.10/sqft, Move In/Out +$0.15/sqft, flat add-ons.
+  // Frequency discount: Monthly 10%, Bi-Weekly 15%, Weekly 20% off.
+  // Displayed as a +/-10% range around the target price.
+  const calculateEstimate = () => {
+    const baseRate = propertyType === 'Residential' ? 0.2 : 0.15;
+    let subtotal = sqft * baseRate;
+
+    if (addons.includes('Deep Clean')) subtotal += sqft * 0.1;
+    if (addons.includes('Move In/Out')) subtotal += sqft * 0.15;
+    if (addons.includes('Inside Fridge')) subtotal += 50;
+    if (addons.includes('Inside Oven')) subtotal += 50;
+    if (addons.includes('Interior Windows')) subtotal += 75;
+
+    let discountMultiplier = 1.0;
+    if (frequency === 'Monthly') discountMultiplier = 0.9;
+    if (frequency === 'Bi-Weekly') discountMultiplier = 0.85;
+    if (frequency === 'Weekly') discountMultiplier = 0.8;
+
+    const targetPrice = subtotal * discountMultiplier;
+    const minPrice = Math.round(targetPrice * 0.9);
+    const maxPrice = Math.round(targetPrice * 1.1);
+
+    return { minPrice, maxPrice, targetPrice: Math.round(targetPrice) };
   };
 
-  // Fixed term range for traditional loan calculator (12–72 months)
-  const maxTerm = 72;
-  const activeTerm = Math.max(12, Math.min(formData.programTerm, maxTerm));
+  const { minPrice, maxPrice } = calculateEstimate();
 
-  // Consolidation loan at 5.99% APR
-  const consolidationMonthlyRate = 0.0599 / 12;
-  const consolidationMonthly = Math.round(calcMonthlyPayment(debt, consolidationMonthlyRate, activeTerm));
-  const consolidationTotal = consolidationMonthly * activeTerm;
+  const formatCurrency = (val: number) => {
+    return new Intl.NumberFormat('en-US', {
+      style: 'currency',
+      currency: 'USD',
+      maximumFractionDigits: 0,
+    }).format(val);
+  };
 
-  // Unsecured debt comparison at 24.9% APR
-  const unsecuredMonthlyRate = 0.249 / 12;
-  const unsecuredMonthly = Math.round(calcMonthlyPayment(debt, unsecuredMonthlyRate, activeTerm));
-  const unsecuredTotal = unsecuredMonthly * activeTerm;
+  const handleSqftChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const value = parseInt(e.target.value, 10);
+    setFormData((prev) => ({ ...prev, sqft: value }));
+    analytics.calculatorSliderChange(value);
+  };
 
-  // Savings = what you'd pay at 24.9% minus what you'd pay at 5.99%
-  const estimatedSavings = unsecuredTotal - consolidationTotal;
+  const handleRoomsChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const value = parseInt(e.target.value, 10);
+    setFormData((prev) => ({ ...prev, rooms: value }));
+  };
 
-  const handleSliderChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const amount = parseInt(e.target.value, 10);
+  const handlePropertyTypeChange = (type: PropertyType) => {
+    setFormData((prev) => ({ ...prev, propertyType: type }));
+  };
+
+  const handleFrequencyChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    setFormData((prev) => ({ ...prev, frequency: e.target.value as Frequency }));
+    analytics.calculatorTermSelect(0);
+  };
+
+  const toggleAddon = (id: string) => {
     setFormData((prev) => ({
       ...prev,
-      debtAmount: amount,
+      addons: prev.addons.includes(id)
+        ? prev.addons.filter((a) => a !== id)
+        : [...prev.addons, id],
     }));
-    analytics.calculatorSliderChange(amount);
   };
 
-  const handleTermSliderChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const term = parseInt(e.target.value, 10);
-    setFormData((prev) => ({
-      ...prev,
-      programTerm: term,
-    }));
-    analytics.calculatorTermSelect(term);
-  };
-
-  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
-    setFormData({
-      ...formData,
-      [name]: value,
-    });
+    setFormData((prev) => ({ ...prev, [name]: value }));
     if (errors[name]) {
       setErrors((prev) => {
         const next = { ...prev };
@@ -127,16 +163,8 @@ export default function SavingsEstimator() {
       newErrors.email = 'Please enter a valid email address';
     }
 
-    if (!formData.state) {
-      newErrors.state = 'Please select your state';
-    }
-
     if (!formData.isAgreed) {
-      newErrors.isAgreed = 'You must agree to the Communications Terms to proceed';
-    }
-
-    if (!formData.isCreditAgreed) {
-      newErrors.isCreditAgreed = 'You must consent to be contacted via call, text, or email to proceed';
+      newErrors.isAgreed = 'You must agree to be contacted to proceed';
     }
 
     setErrors(newErrors);
@@ -145,21 +173,20 @@ export default function SavingsEstimator() {
 
   const handleNextStep = () => {
     analytics.calculatorStepAdvance(1, 2);
-    analytics.calculatorEstimateViewed({ amount: debt, term: activeTerm, monthlyPayment: consolidationMonthly, savings: estimatedSavings });
+    analytics.calculatorEstimateViewed({ amount: sqft, term: 0, monthlyPayment: minPrice, savings: maxPrice - minPrice });
     setFormData((prev) => ({ ...prev, step: 2 }));
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (validateStep2()) {
-      // Track conversion + identify lead
-      analytics.calculatorSubmit({ amount: debt, term: activeTerm, monthlyPayment: consolidationMonthly, savings: estimatedSavings });
+      analytics.calculatorSubmit({ amount: sqft, term: 0, monthlyPayment: minPrice, savings: maxPrice - minPrice });
       analytics.calculatorStepAdvance(2, 3);
 
       // Advance to confirmation screen immediately
       setFormData((prev) => ({ ...prev, step: 3 }));
 
-      // Fire lead data to all enabled backends (non-blocking)
+      // Fire lead data to the backend (non-blocking)
       try {
         await fetch('/api/submit-lead', {
           method: 'POST',
@@ -168,14 +195,14 @@ export default function SavingsEstimator() {
             fullName: formData.fullName,
             phone: formData.phone,
             email: formData.email,
-            state: formData.state,
-            loanAmount: debt,
-            loanTerm: activeTerm,
-            estimatedMonthlyPayment: consolidationMonthly,
-            estimatedTotalCost: consolidationTotal,
-            unsecuredTotal: unsecuredTotal,
-            estimatedSavings: estimatedSavings,
-            smsConsent: formData.isCreditAgreed,
+            propertyType: formData.propertyType,
+            sqft: formData.sqft,
+            rooms: formData.rooms,
+            frequency: formData.frequency,
+            addons: formData.addons,
+            estimatedPriceMin: minPrice,
+            estimatedPriceMax: maxPrice,
+            smsConsent: formData.isSmsAgreed,
             communicationsConsent: formData.isAgreed,
             quoteId: quoteId,
           }),
@@ -187,225 +214,225 @@ export default function SavingsEstimator() {
     }
   };
 
-  const formatCurrency = (val: number) => {
-    return new Intl.NumberFormat('en-US', {
-      style: 'currency',
-      currency: 'USD',
-      maximumFractionDigits: 0,
-    }).format(val);
-  };
-
-  const statesList = [
-    { code: 'CA', name: 'California' },
-    { code: 'TX', name: 'Texas' },
-    { code: 'NY', name: 'New York' },
-    { code: 'FL', name: 'Florida' },
-    { code: 'IL', name: 'Illinois' },
-    { code: 'PA', name: 'Pennsylvania' },
-    { code: 'OH', name: 'Ohio' },
-    { code: 'GA', name: 'Georgia' },
-    { code: 'NC', name: 'North Carolina' },
-    { code: 'MI', name: 'Michigan' },
-    { code: 'NJ', name: 'New Jersey' },
-    { code: 'VA', name: 'Virginia' },
-    { code: 'WA', name: 'Washington' },
-    { code: 'AZ', name: 'Arizona' },
-    { code: 'UT', name: 'Utah' },
-    { code: 'MA', name: 'Massachusetts' },
-  ];
-
   return (
-    <div 
-      className="w-full bg-white rounded-3xl border border-af-blue-ice shadow-[0_20px_50px_-15px_rgba(29,49,95,0.15)] overflow-hidden" 
+    <div
+      className="w-full bg-white rounded-3xl border border-af-blue-ice shadow-[0_20px_50px_-15px_rgba(24,52,55,0.18)] overflow-hidden"
       id="savings-estimator-card"
     >
       {/* Card Header */}
       <div className="bg-gradient-to-r from-af-navy to-af-navy-deep text-white px-6 sm:px-8 py-5 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
         <div className="flex items-center gap-3">
-          <div className="w-14 h-14 sm:w-10 sm:h-10 rounded-xl bg-white flex items-center justify-center p-1.5 shadow-md border border-white/20 flex-shrink-0">
-            <div className="relative w-full h-full">
-              <Image 
-                src="/images/torch_logo.png" 
-                alt="Advantage First Torch" 
-                fill 
-                className="object-contain" 
-                sizes="40px"
-              />
-            </div>
+          <div className="w-14 h-14 sm:w-10 sm:h-10 rounded-xl bg-white flex items-center justify-center shadow-md border border-white/20 flex-shrink-0">
+            <Sparkles className="w-6 h-6 sm:w-5 sm:h-5 text-af-blue" />
           </div>
           <div>
             <span className="text-sm sm:text-base font-extrabold text-white tracking-tight block leading-tight">
-              See Which Consolidation Options May Fit Your Situation
+              Get Your Instant Cleaning Quote
             </span>
             <span className="text-[10px] text-white/70 block uppercase font-bold tracking-wider mt-0.5">
-              Consolidation Loans · Multi-Lender Analysis
+              Residential &amp; Commercial · No Call Required
             </span>
           </div>
         </div>
-        
+
         <div className="flex items-center gap-1.5 bg-white/10 px-3 py-1.5 rounded-full border border-white/10 flex-shrink-0 self-center">
           <span className="text-[11px] font-mono font-bold text-white/90 mr-1">Step {formData.step}/3</span>
-          <button type="button" onClick={() => setFormData(prev => ({ ...prev, step: 1 }))} className={`h-2 rounded-full transition-all cursor-pointer hover:opacity-80 ${formData.step === 1 ? 'bg-af-blue-cyan w-5' : 'bg-white/40 w-2'}`} aria-label="Go to step 1" />
-          <button type="button" onClick={() => setFormData(prev => ({ ...prev, step: 2 }))} className={`h-2 rounded-full transition-all cursor-pointer hover:opacity-80 ${formData.step === 2 ? 'bg-af-blue-cyan w-5' : 'bg-white/40 w-2'}`} aria-label="Go to step 2" />
-          <button type="button" onClick={() => setFormData(prev => ({ ...prev, step: 3 }))} className={`h-2 rounded-full transition-all cursor-pointer hover:opacity-80 ${formData.step === 3 ? 'bg-af-blue-cyan w-5' : 'bg-white/40 w-2'}`} aria-label="Go to step 3" />
+          <button type="button" onClick={() => setFormData((prev) => ({ ...prev, step: 1 }))} className={`h-2 rounded-full transition-all cursor-pointer hover:opacity-80 ${formData.step === 1 ? 'bg-af-blue-cyan w-5' : 'bg-white/40 w-2'}`} aria-label="Go to step 1" />
+          <button type="button" onClick={() => setFormData((prev) => ({ ...prev, step: 2 }))} className={`h-2 rounded-full transition-all cursor-pointer hover:opacity-80 ${formData.step === 2 ? 'bg-af-blue-cyan w-5' : 'bg-white/40 w-2'}`} aria-label="Go to step 2" />
+          <button type="button" onClick={() => setFormData((prev) => ({ ...prev, step: 3 }))} className={`h-2 rounded-full transition-all cursor-pointer hover:opacity-80 ${formData.step === 3 ? 'bg-af-blue-cyan w-5' : 'bg-white/40 w-2'}`} aria-label="Go to step 3" />
         </div>
       </div>
 
-      {/* Step 1: Interactive Loan Profile Calculator */}
+      {/* Step 1: Property & Service Configuration */}
       {formData.step === 1 && (
         <div className="p-6 sm:p-8" id="estimator-step-1">
           <div className="space-y-6">
+
+            {/* Property Type Toggle */}
             <div className="text-left">
-              <label htmlFor="debt-slider" className="block text-xs font-extrabold text-af-navy uppercase tracking-wider">
-                Select Your Total Unsecured Balance Profile
+              <label className="block text-xs font-extrabold text-af-navy uppercase tracking-wider mb-2">
+                Property Type
               </label>
-              <p className="text-xs text-pv-muted mt-1">
-                Include Credit Cards, Personal Loans, Medical Bills &amp; High-Interest Balances
-              </p>
+              <div className="grid grid-cols-2 gap-3">
+                <button
+                  type="button"
+                  onClick={() => handlePropertyTypeChange('Residential')}
+                  className={`flex items-center justify-center gap-2 py-3.5 rounded-xl border-2 font-bold text-sm transition-all ${
+                    propertyType === 'Residential'
+                      ? 'border-af-blue bg-af-blue-soft text-af-navy shadow-sm'
+                      : 'border-af-blue-ice bg-white text-pv-muted hover:border-af-blue/40'
+                  }`}
+                  id="property-type-residential"
+                >
+                  <Home className="w-4 h-4" />
+                  Residential
+                </button>
+                <button
+                  type="button"
+                  onClick={() => handlePropertyTypeChange('Commercial')}
+                  className={`flex items-center justify-center gap-2 py-3.5 rounded-xl border-2 font-bold text-sm transition-all ${
+                    propertyType === 'Commercial'
+                      ? 'border-af-blue bg-af-blue-soft text-af-navy shadow-sm'
+                      : 'border-af-blue-ice bg-white text-pv-muted hover:border-af-blue/40'
+                  }`}
+                  id="property-type-commercial"
+                >
+                  <Building2 className="w-4 h-4" />
+                  Commercial
+                </button>
+              </div>
             </div>
 
-            {/* Dynamic Metric Display Box */}
-            <div className="text-center py-5 px-4 bg-af-blue-soft rounded-2xl border border-af-blue-ice" id="slider-value-display">
-              <span className="block text-[10px] font-bold text-pv-muted uppercase tracking-widest">
-                Total Unsecured Balance
-              </span>
-              <span className="font-display text-4xl sm:text-5xl font-extrabold text-af-navy mt-1 block tracking-tight">
-                {formatCurrency(debt)}
-              </span>
-            </div>
-
-            {/* Real-time slider */}
-            <div className="relative mt-2" id="slider-range-wrapper">
+            {/* Sqft Slider */}
+            <div className="relative" id="sqft-slider-wrapper">
+              <div className="text-left flex justify-between items-center mb-2">
+                <label htmlFor="sqft-slider" className="block text-xs font-extrabold text-af-navy uppercase tracking-wider">
+                  Approximate Square Footage
+                </label>
+                <span className="font-display text-base sm:text-lg font-bold text-af-blue bg-af-blue-ice px-2.5 py-1 rounded-lg whitespace-nowrap">
+                  {sqft.toLocaleString()} sqft
+                </span>
+              </div>
               <input
                 type="range"
-                id="debt-slider"
-                min="8000"
-                max="100000"
-                step="1000"
-                value={debt}
-                onChange={handleSliderChange}
+                id="sqft-slider"
+                min="500"
+                max="10000"
+                step="50"
+                value={sqft}
+                onChange={handleSqftChange}
                 className="w-full h-2.5 bg-af-blue-ice rounded-lg appearance-none cursor-pointer accent-af-blue focus:outline-none focus:ring-2 focus:ring-af-blue/50"
-                aria-label="Total unsecured balance amount"
+                aria-label="Approximate square footage"
               />
               <div className="flex justify-between text-[11px] font-bold text-pv-muted mt-2 px-0.5 font-mono">
-                <span>$8,000</span>
-                <span>$50,000</span>
-                <span>$100,000+</span>
+                <span>500 sqft</span>
+                <span>5,000 sqft</span>
+                <span>10,000+ sqft</span>
               </div>
             </div>
 
-            {/* Pathway Contextual Badge explaining Loan Eligibility */}
-            <div className="p-3.5 rounded-xl border text-xs leading-relaxed text-left flex items-start gap-2.5 transition-colors duration-200 bg-white border-af-blue-ice" id="pathway-qualification-indicator">
-              <Sparkles className="w-4 h-4 text-af-blue flex-shrink-0 mt-0.5" />
-              <div>
-                {isLoanEligibleAmount ? (
-                  <p className="text-af-navy font-semibold">
-                    <strong className="text-trust-green font-bold">Consolidation Loan Eligible:</strong> At <strong className="text-af-blue">{formatCurrency(debt)}</strong>, you may qualify for a direct or partner consolidation loan (up to $100,000) with competitive fixed rates.
-                  </p>
-                ) : (
-                  <p className="text-af-navy font-semibold">
-                    <strong className="text-af-blue font-bold">High-Balance Loan Program:</strong> Balances over $100,000 (up to $400,000+) may be structured through customized consolidation lending programs across our partner network.
-                  </p>
-                )}
-              </div>
-            </div>
-
-            {/* Dynamic Timeframe Slider */}
-            <div className="space-y-3 pt-2 border-t border-af-blue-ice/60" id="term-slider-wrapper">
-              <div className="text-left flex justify-between items-center">
-                <div>
-                  <label htmlFor="term-slider" className="block text-xs font-bold text-af-navy uppercase tracking-wider">
-                    Target Timeframe
-                  </label>
-                  <p className="text-[11px] text-pv-muted mt-0.5 whitespace-nowrap">
-                    Customize your repayment period (12 to 72 months)
-                  </p>
-                </div>
-                <div className="text-right">
-                  <span className="font-display text-base sm:text-lg font-bold text-af-blue bg-af-blue-ice px-1.5 py-0.5 sm:px-2.5 sm:py-1 rounded-md sm:rounded-lg whitespace-nowrap">
-                    {activeTerm} {activeTerm === 1 ? 'Month' : 'Months'}
-                  </span>
-                </div>
-              </div>
-
-              <div className="relative">
-                <input
-                  type="range"
-                  id="term-slider"
-                  min="12"
-                  max={maxTerm}
-                  step="1"
-                  value={activeTerm}
-                  onChange={handleTermSliderChange}
-                  className="w-full h-2.5 bg-af-blue-ice rounded-lg appearance-none cursor-pointer accent-af-blue focus:outline-none focus:ring-2 focus:ring-af-blue/50"
-                  aria-label="Target timeframe in months"
-                />
-                <div className="flex justify-between text-[11px] font-bold text-pv-muted mt-2 px-0.5 font-mono">
-                  <span>12 Months</span>
-                  <span>{Math.max(12, Math.round((12 + maxTerm) / 2))} Months</span>
-                  <span>{maxTerm} Months</span>
-                </div>
-              </div>
-            </div>
-
-            {/* Dynamic Multi-Option Estimates Panel */}
-            <div className="bg-af-blue-soft/70 rounded-2xl border border-af-blue-ice p-4 sm:p-5 space-y-1" id="live-estimates-panel">
-              <div className="flex justify-between items-start text-xs sm:text-sm border-b border-af-blue-ice/60 pb-0.5">
-                <div>
-                  <span className="text-af-navy font-bold block">Unsecured Balance (24.9% APR)</span>
-                  <span className="text-[10px] text-pv-muted font-medium block mt-0.5">Unsecured balance of <strong className="text-af-blue font-bold">{formatCurrency(debt)}</strong> at 24.9% interest paid over <strong className="text-af-blue font-bold">{activeTerm} months</strong> estimate</span>
-                </div>
-                <span className="font-bold text-af-navy font-mono">{formatCurrency(unsecuredTotal)}</span>
-              </div>
-              <div className="flex justify-between items-center text-xs sm:text-sm pb-0.5 pt-0.5">
-                <span className="text-pv-muted font-medium">
-                  Estimated Principal &amp; Interest Savings
+            {/* Rooms Slider */}
+            <div className="relative" id="rooms-slider-wrapper">
+              <div className="text-left flex justify-between items-center mb-2">
+                <label htmlFor="rooms-slider" className="block text-xs font-extrabold text-af-navy uppercase tracking-wider">
+                  Number of Rooms
+                </label>
+                <span className="font-display text-base sm:text-lg font-bold text-af-blue bg-af-blue-ice px-2.5 py-1 rounded-lg whitespace-nowrap">
+                  {rooms} {rooms === 1 ? 'Room' : 'Rooms'}
                 </span>
-                <span className="font-bold text-trust-green font-mono">{formatCurrency(estimatedSavings)}</span>
               </div>
-              <p className="text-[9px] text-pv-muted/70 leading-tight px-0.5 pb-2">
-                Consolidation loan of <strong className="text-af-blue">{formatCurrency(debt)}</strong> at 5.99% APR vs <strong className="text-af-blue">{formatCurrency(debt)}</strong> at average credit<br />card interest of 24.9% APR over <strong className="text-af-blue">{activeTerm} months</strong>.
+              <input
+                type="range"
+                id="rooms-slider"
+                min="1"
+                max="20"
+                step="1"
+                value={rooms}
+                onChange={handleRoomsChange}
+                className="w-full h-2.5 bg-af-blue-ice rounded-lg appearance-none cursor-pointer accent-af-blue focus:outline-none focus:ring-2 focus:ring-af-blue/50"
+                aria-label="Number of rooms"
+              />
+              <div className="flex justify-between text-[11px] font-bold text-pv-muted mt-2 px-0.5 font-mono">
+                <span>1</span>
+                <span>10</span>
+                <span>20+</span>
+              </div>
+            </div>
+
+            {/* Frequency Dropdown */}
+            <div className="text-left space-y-1.5" id="frequency-wrapper">
+              <label htmlFor="frequency-select" className="block text-xs font-extrabold text-af-navy uppercase tracking-wider">
+                How Often?
+              </label>
+              <select
+                id="frequency-select"
+                value={frequency}
+                onChange={handleFrequencyChange}
+                className="w-full px-4 py-3 rounded-xl border border-af-blue-ice focus:border-af-blue text-sm font-semibold focus:outline-none focus:ring-1 focus:ring-af-blue bg-white text-af-navy"
+              >
+                <option value="One-Time">One-Time</option>
+                <option value="Weekly">Weekly — Save 20%</option>
+                <option value="Bi-Weekly">Bi-Weekly — Save 15%</option>
+                <option value="Monthly">Monthly — Save 10%</option>
+              </select>
+            </div>
+
+            {/* Add-ons */}
+            <div className="text-left space-y-2" id="addons-wrapper">
+              <label className="block text-xs font-extrabold text-af-navy uppercase tracking-wider">
+                Add-Ons (Optional)
+              </label>
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
+                {ADDON_OPTIONS.map((opt) => (
+                  <label
+                    key={opt.id}
+                    className={`flex items-start gap-2.5 p-3 rounded-xl border cursor-pointer transition-all ${
+                      addons.includes(opt.id)
+                        ? 'border-af-blue bg-af-blue-soft'
+                        : 'border-af-blue-ice bg-white hover:border-af-blue/40'
+                    }`}
+                  >
+                    <input
+                      type="checkbox"
+                      checked={addons.includes(opt.id)}
+                      onChange={() => toggleAddon(opt.id)}
+                      className="mt-0.5 h-4 w-4 rounded border-af-blue-ice text-af-blue focus:ring-af-blue cursor-pointer flex-shrink-0"
+                    />
+                    <span>
+                      <span className="block text-xs font-bold text-af-navy">{opt.label}</span>
+                      <span className="block text-[10px] text-pv-muted mt-0.5">{opt.hint}</span>
+                    </span>
+                  </label>
+                ))}
+              </div>
+            </div>
+
+            {/* Live Estimate Panel */}
+            <div className="bg-af-blue-soft/70 rounded-2xl border border-af-blue-ice p-4 sm:p-5 space-y-1" id="live-estimates-panel">
+              <div className="flex justify-between items-center">
+                <span className="text-xs font-bold text-af-navy uppercase tracking-wider">
+                  Your Estimated Price Range
+                </span>
+                <Repeat className="w-4 h-4 text-af-blue" />
+              </div>
+              <div className="flex items-baseline gap-1 pt-1">
+                <span className="font-display text-3xl sm:text-4xl font-extrabold text-af-navy tracking-tight">
+                  {formatCurrency(minPrice)} – {formatCurrency(maxPrice)}
+                </span>
+              </div>
+              <p className="text-[11px] text-pv-muted leading-tight pt-1">
+                {propertyType} · {sqft.toLocaleString()} sqft · {frequency}
+                {addons.length > 0 ? ` · ${addons.length} add-on${addons.length > 1 ? 's' : ''}` : ''}
               </p>
-              <div className="flex justify-between items-center pt-2 border-t border-af-blue-ice/60" id="new-monthly-payment-estimate">
-                <div>
-                  <span className="text-xs font-bold text-af-navy uppercase tracking-wider block">Estimated Monthly Payment</span>
-                  <span className="text-[10px] text-pv-muted mt-0.5 block">Consolidation loan at 5.99% APR · <strong className="text-af-blue font-bold">{activeTerm}-month</strong> term</span>
-                </div>
-                <div className="text-right">
-                  <span className="font-display text-2xl sm:text-3xl font-extrabold text-af-navy block">
-                    {formatCurrency(consolidationMonthly)}<span className="text-xs font-normal text-pv-muted font-mono">/mo</span>
-                  </span>
-                </div>
-              </div>
             </div>
 
             {/* Advance Button */}
             <button
               onClick={handleNextStep}
-              className="w-full py-4 rounded-full bg-gradient-to-r from-af-red to-[#E63935] hover:from-[#C02926] hover:to-af-red text-white font-bold transition-all duration-200 flex items-center justify-center gap-2 text-base shadow-lg shadow-af-red/25 hover:shadow-xl group active:scale-[0.98]"
+              className="w-full py-4 rounded-full bg-gradient-to-r from-af-red to-[#B98B3D] hover:from-af-red-hover hover:to-af-red text-white font-bold transition-all duration-200 flex items-center justify-center gap-2 text-base shadow-lg shadow-af-red/25 hover:shadow-xl group active:scale-[0.98]"
               id="estimator-step1-next-btn"
             >
-              <span>See My Qualifying Options</span>
+              <span>Get My Quote</span>
               <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
             </button>
 
             <div className="flex items-center justify-center gap-2 text-[11px] text-pv-muted text-center" id="secure-disclaimer-step1">
               <ShieldCheck className="w-4 h-4 text-trust-green" />
-              <span>Free calculation · No impact on credit score · Explores Loan Options</span>
+              <span>Free instant estimate · No obligation · Confirmed before booking</span>
             </div>
           </div>
         </div>
       )}
 
-      {/* Step 2: Verification & Delivery Form */}
+      {/* Step 2: Contact Information */}
       {formData.step === 2 && (
         <form onSubmit={handleSubmit} className="p-6 sm:p-8 space-y-5" id="estimator-step-2">
           <div className="text-left border-b border-af-blue-ice pb-3">
             <h3 className="text-base sm:text-lg font-bold text-af-navy">
-              Where Should We Send Your Qualifying Options?
+              Where Should We Send Your Quote?
             </h3>
             <p className="text-xs text-pv-muted mt-1">
-              We will evaluate your {formatCurrency(debt)} profile against direct lending and multi-lender consolidation options.
+              Your estimated range is {formatCurrency(minPrice)}–{formatCurrency(maxPrice)} for a {frequency.toLowerCase()} {propertyType.toLowerCase()} clean.
             </p>
           </div>
 
@@ -421,7 +448,7 @@ export default function SavingsEstimator() {
                 name="fullName"
                 value={formData.fullName}
                 onChange={handleInputChange}
-                placeholder="Marcus Vance"
+                placeholder="Jamie Rivera"
                 className={`w-full px-4 py-3 rounded-xl border ${errors.fullName ? 'border-af-red bg-red-50/20' : 'border-af-blue-ice focus:border-af-blue'} text-sm focus:outline-none focus:ring-1 focus:ring-af-blue bg-white text-af-navy`}
                 aria-invalid={!!errors.fullName}
               />
@@ -456,28 +483,8 @@ export default function SavingsEstimator() {
               )}
             </div>
 
-            {/* State Selection */}
-            <div className="text-left space-y-1.5">
-              <label htmlFor="state" className="block text-xs font-bold text-af-navy uppercase tracking-wider">
-                State of Residence
-              </label>
-              <select
-                id="state"
-                name="state"
-                value={formData.state}
-                onChange={handleInputChange}
-                className="w-full px-4 py-3 rounded-xl border border-af-blue-ice focus:border-af-blue text-sm focus:outline-none focus:ring-1 focus:ring-af-blue bg-white text-af-navy"
-              >
-                {statesList.map((st) => (
-                  <option key={st.code} value={st.code}>
-                    {st.name} ({st.code})
-                  </option>
-                ))}
-              </select>
-            </div>
-
             {/* Email address */}
-            <div className="text-left space-y-1.5 col-span-2">
+            <div className="text-left space-y-1.5">
               <label htmlFor="email" className="block text-xs font-bold text-af-navy uppercase tracking-wider">
                 Email Address
               </label>
@@ -487,7 +494,7 @@ export default function SavingsEstimator() {
                 name="email"
                 value={formData.email}
                 onChange={handleInputChange}
-                placeholder="marcus@example.com"
+                placeholder="jamie@example.com"
                 className={`w-full px-4 py-3 rounded-xl border ${errors.email ? 'border-af-red bg-red-50/20' : 'border-af-blue-ice focus:border-af-blue'} text-sm focus:outline-none focus:ring-1 focus:ring-af-blue bg-white text-af-navy`}
                 aria-invalid={!!errors.email}
               />
@@ -500,10 +507,10 @@ export default function SavingsEstimator() {
             </div>
           </div>
 
-          {/* Dual Consent Checkboxes */}
+          {/* Consent Checkboxes */}
           <div className="text-left space-y-3.5 col-span-2 mt-2 p-4 rounded-xl bg-af-blue-soft border border-af-blue-ice">
-            
-            {/* Checkbox 1: SMS Consent */}
+
+            {/* Checkbox 1: Contact Consent */}
             <div className="flex items-start gap-2.5">
               <input
                 type="checkbox"
@@ -523,7 +530,7 @@ export default function SavingsEstimator() {
                 className="mt-1 h-4 w-4 rounded border-af-blue-ice text-af-blue focus:ring-af-blue cursor-pointer flex-shrink-0"
               />
               <label htmlFor="isAgreed" className="text-[11px] text-pv-muted leading-relaxed cursor-pointer select-none">
-                I agree to receive marketing and informational text messages (SMS) from Advantage First Financial at the phone number provided, including messages sent using an autodialer or conversational technology. Message frequency: up to 10 msgs/month. Consent is not a condition of any purchase or loan. Msg &amp; data rates may apply. Reply HELP for help, STOP to cancel. View our <a href="/privacy" className="text-af-blue underline font-semibold">Privacy Policy</a> and <a href="/sms-terms" className="text-af-blue underline font-semibold">SMS Terms</a>.
+                I agree to be contacted by B&amp;P Cleaning Services by phone or email about my quote and booking. View our <a href="/privacy" className="text-af-blue underline font-semibold">Privacy Policy</a> and <a href="/terms-of-use" className="text-af-blue underline font-semibold">Terms of Use</a>.
               </label>
             </div>
             {errors.isAgreed && (
@@ -533,51 +540,35 @@ export default function SavingsEstimator() {
               </p>
             )}
 
-            {/* Checkbox 2: Phone Calls Consent */}
+            {/* Checkbox 2: SMS Consent */}
             <div className="flex items-start gap-2.5 border-t border-af-blue-ice/60 pt-3">
               <input
                 type="checkbox"
-                id="isCreditAgreed"
-                name="isCreditAgreed"
-                checked={formData.isCreditAgreed}
-                onChange={(e) => {
-                  setFormData({ ...formData, isCreditAgreed: e.target.checked });
-                  if (errors.isCreditAgreed) {
-                    setErrors((prev) => {
-                      const next = { ...prev };
-                      delete next.isCreditAgreed;
-                      return next;
-                    });
-                  }
-                }}
+                id="isSmsAgreed"
+                name="isSmsAgreed"
+                checked={formData.isSmsAgreed}
+                onChange={(e) => setFormData({ ...formData, isSmsAgreed: e.target.checked })}
                 className="mt-1 h-4 w-4 rounded border-af-blue-ice text-af-blue focus:ring-af-blue cursor-pointer flex-shrink-0"
               />
-              <label htmlFor="isCreditAgreed" className="text-[11px] text-pv-muted leading-relaxed cursor-pointer select-none">
-                I agree to receive marketing and informational phone calls from Advantage First Financial at the phone number provided regarding my loan inquiry and consolidation assessment. Consent is not a condition of any purchase or financial service.
+              <label htmlFor="isSmsAgreed" className="text-[11px] text-pv-muted leading-relaxed cursor-pointer select-none">
+                I agree to receive text messages (SMS) about my quote, booking confirmation, and appointment reminders. Msg &amp; data rates may apply. Reply STOP to cancel. View our <a href="/sms-terms" className="text-af-blue underline font-semibold">SMS Terms</a>.
               </label>
             </div>
-            {errors.isCreditAgreed && (
-              <p className="text-xs text-af-red flex items-center gap-1 font-medium pl-6">
-                <AlertCircle className="w-3.5 h-3.5" />
-                {errors.isCreditAgreed}
-              </p>
-            )}
-
           </div>
 
           {/* Final Submit Button */}
           <button
             type="submit"
-            className="w-full py-4 rounded-full bg-gradient-to-r from-af-red to-[#E63935] hover:from-[#C02926] hover:to-af-red text-white font-bold transition-all duration-200 text-center text-base shadow-lg shadow-af-red/25 mt-2 flex items-center justify-center gap-2 active:scale-[0.98]"
+            className="w-full py-4 rounded-full bg-gradient-to-r from-af-red to-[#B98B3D] hover:from-af-red-hover hover:to-af-red text-white font-bold transition-all duration-200 text-center text-base shadow-lg shadow-af-red/25 mt-2 flex items-center justify-center gap-2 active:scale-[0.98]"
             id="estimator-step2-submit-btn"
           >
-            <span>Unlock My Qualifying Options</span>
+            <span>Confirm My Quote</span>
             <Check className="w-5 h-5" />
           </button>
         </form>
       )}
 
-      {/* Step 3: Multi-Option Qualification Results */}
+      {/* Step 3: Confirmation */}
       {formData.step === 3 && (
         <div className="p-6 sm:p-8 space-y-6 text-center" id="estimator-success">
           <div className="flex flex-col items-center justify-center">
@@ -585,112 +576,69 @@ export default function SavingsEstimator() {
               <CheckCircle2 className="w-7 h-7 stroke-[2.5]" />
             </div>
             <h3 className="text-xl sm:text-2xl font-extrabold text-af-navy">
-              Assessment Generated!
+              Quote Confirmed!
             </h3>
             <p className="text-xs sm:text-sm text-pv-muted mt-1 max-w-[36ch] mx-auto">
-              Evaluation Reference: <span className="font-mono font-bold text-af-blue">AFF-{quoteId !== null ? String(quoteId).padStart(6, '0') : '------'}</span>
+              Quote Reference: <span className="font-mono font-bold text-af-blue">BPC-{quoteId !== null ? String(quoteId).padStart(6, '0') : '------'}</span>
             </p>
           </div>
 
-          {/* Multi-Option Qualification Breakdown */}
-          <div className="text-left space-y-3">
-            <h4 className="text-xs font-extrabold text-af-navy uppercase tracking-wider">
-              Based on your {formatCurrency(debt)} balance profile, you may qualify for:
-            </h4>
-
-            <div className="space-y-2.5">
-              {/* Option 1: Consolidation Loan */}
-              <div className="p-3.5 rounded-2xl bg-white border border-af-blue-ice/80 hover:border-af-blue/40 transition-colors shadow-2xs card-hover-bar">
-                <div className="flex items-center justify-between mb-1">
-                  <div className="flex items-center gap-2">
-                    <CreditCard className="w-4 h-4 text-af-blue" />
-                    <span className="text-xs font-bold text-af-navy">Consolidation Loan</span>
-                  </div>
-                  <span className="text-[10px] font-bold text-trust-green bg-trust-green-light px-2 py-0.5 rounded-full border border-trust-green/20">
-                    {isLoanEligibleAmount ? 'High Match (Up to $100k)' : 'Up to $100,000 Max'}
-                  </span>
-                </div>
-                <p className="text-[11px] text-pv-muted leading-tight">
-                  Single fixed monthly payment, competitive rates from 5.99% APR, terms 12 to 72 months.
-                </p>
-              </div>
-
-
-
-              {/* Option 3: Credit Counseling & Structured Repayment */}
-              <div className="p-3.5 rounded-2xl bg-white border border-af-blue-ice/80 hover:border-af-blue/40 transition-colors shadow-2xs card-hover-bar">
-                <div className="flex items-center justify-between mb-1">
-                  <div className="flex items-center gap-2">
-                    <Scale className="w-4 h-4 text-af-navy" />
-                    <span className="text-xs font-bold text-af-navy">Credit Counseling &amp; Restructuring</span>
-                  </div>
-                  <span className="text-[10px] font-semibold text-pv-muted bg-gray-100 px-2 py-0.5 rounded-full">
-                    Structured Payoff
-                  </span>
-                </div>
-                <p className="text-[11px] text-pv-muted leading-tight">
-                  Structured interest reduction counseling to eliminate balances without taking on new loans.
-                </p>
-              </div>
-
-              {/* Option 4: Lending Marketplace Comparison */}
-              <div className="p-3.5 rounded-2xl bg-white border border-af-blue-ice/80 hover:border-af-blue/40 transition-colors shadow-2xs card-hover-bar">
-                <div className="flex items-center justify-between mb-1">
-                  <div className="flex items-center gap-2">
-                    <Building2 className="w-4 h-4 text-af-blue" />
-                    <span className="text-xs font-bold text-af-navy">Lender Network Marketplace</span>
-                  </div>
-                  <span className="text-[10px] font-semibold text-af-blue bg-af-blue-ice px-2 py-0.5 rounded-full">
-                    Multi-Offer Matching
-                  </span>
-                </div>
-                <p className="text-[11px] text-pv-muted leading-tight">
-                  Instant multi-lender comparison across SoFi, Prosper, Upgrade, and Best Egg partner networks.
-                </p>
-              </div>
-            </div>
-          </div>
-
-          {/* Locked-in Assessment Summary Panel */}
+          {/* Quote Summary Panel */}
           <div className="bg-af-blue-soft/80 border border-af-blue-ice rounded-2xl p-4 text-left space-y-2.5 shadow-xs" id="quote-results-panel">
             <div className="flex justify-between items-center text-xs text-pv-muted border-b border-af-blue-ice/60 pb-2">
-              <span>Client Name:</span>
+              <span>Name:</span>
               <span className="font-bold text-af-navy">{formData.fullName}</span>
             </div>
             <div className="flex justify-between items-center text-xs text-pv-muted border-b border-af-blue-ice/60 pb-2">
-              <span>Total Balance Evaluated:</span>
-              <span className="font-bold text-af-navy font-mono">{formatCurrency(debt)}</span>
+              <span>Property:</span>
+              <span className="font-bold text-af-navy">{formData.propertyType} · {formData.sqft.toLocaleString()} sqft · {formData.rooms} rooms</span>
             </div>
             <div className="flex justify-between items-center text-xs text-pv-muted border-b border-af-blue-ice/60 pb-2">
-              <span>Consolidation Loan Total (5.99% APR):</span>
-              <span className="font-bold text-af-navy font-mono">{formatCurrency(consolidationTotal)}</span>
+              <span>Frequency:</span>
+              <span className="font-bold text-af-navy">{formData.frequency}</span>
             </div>
-            <div className="flex justify-between items-center text-xs text-pv-muted border-b border-af-blue-ice/60 pb-2">
-              <span>Estimated Monthly:</span>
-              <span className="text-base font-display text-af-blue font-extrabold">{formatCurrency(consolidationMonthly)}/mo</span>
+            {formData.addons.length > 0 && (
+              <div className="flex justify-between items-start text-xs text-pv-muted border-b border-af-blue-ice/60 pb-2">
+                <span>Add-Ons:</span>
+                <span className="font-bold text-af-navy text-right max-w-[60%]">{formData.addons.join(', ')}</span>
+              </div>
+            )}
+            <div className="flex justify-between items-center pt-1">
+              <span className="text-xs font-bold text-af-navy uppercase tracking-wider">Estimated Range:</span>
+              <span className="text-base font-display text-af-blue font-extrabold">{formatCurrency(minPrice)} – {formatCurrency(maxPrice)}</span>
             </div>
-            <div className="flex justify-between items-center pt-1 text-xs font-bold text-trust-green">
-              <span>Estimated Principal &amp; Interest Savings:</span>
-              <span className="font-mono">{formatCurrency(estimatedSavings)}</span>
+          </div>
+
+          {/* What Happens Next */}
+          <div className="text-left space-y-2">
+            <h4 className="text-xs font-extrabold text-af-navy uppercase tracking-wider">
+              What happens next
+            </h4>
+            <div className="p-3.5 rounded-2xl bg-white border border-af-blue-ice/80 shadow-2xs">
+              <p className="text-[11px] text-pv-muted leading-relaxed">
+                We&apos;ll text or call you shortly to confirm your final price, pick an appointment
+                time, and match you with a vetted cleaner in your area. You won&apos;t be charged
+                until after your cleaning is completed.
+              </p>
             </div>
           </div>
 
           {/* Direct Phone Activation Band */}
           <div className="bg-gradient-to-br from-af-navy to-af-navy-deep text-white rounded-2xl p-5 space-y-3 shadow-md" id="success-hotline-prompt">
-            <span className="text-xs font-bold text-af-red uppercase tracking-wider block">
-              Want Immediate Option Review? Speak with a Specialist
+            <span className="text-xs font-bold text-af-red-light uppercase tracking-wider block">
+              Want to Book Right Now?
             </span>
             <p className="text-xs text-white/80 leading-relaxed max-w-[32ch] mx-auto">
-              Our lending specialists can review your pre-qualification options in under 5 minutes.
+              Call us and we&apos;ll get you on the schedule in under 5 minutes.
             </p>
-            <a 
-              href="tel:18003441202" 
+            <a
+              href="tel:15550101234"
               onClick={() => analytics.calculatorCallClick()}
               className="w-full py-3.5 bg-white hover:bg-af-blue-ice text-af-navy font-extrabold rounded-xl transition-all duration-200 flex items-center justify-center gap-2 text-sm tracking-wide shadow-md"
               id="success-hotline-btn"
             >
               <PhoneCall className="w-4 h-4 text-af-red" />
-              Call (800) 344-1202
+              Call (555) 010-1234
             </a>
           </div>
         </div>
