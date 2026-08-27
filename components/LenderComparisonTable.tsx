@@ -35,7 +35,7 @@ export default function LenderComparisonTable({ onApplyClick }: LenderComparison
       name: 'Standard Clean',
       badge: 'Most Popular',
       badgeColor: 'bg-af-blue-ice text-af-blue',
-      rate: '$0.20 / sqft',
+      rate: '$0.35 / sqft',
       frequency: 'One-time or recurring',
       features: 'Dusting, vacuuming, kitchens & bathrooms, trash removal',
     },
@@ -122,7 +122,7 @@ export default function LenderComparisonTable({ onApplyClick }: LenderComparison
                         </div>
                       </td>
                       <td className="py-5">
-                        <span className="font-mono font-extrabold text-trust-green text-base bg-trust-green-light px-2.5 py-1 rounded-lg border border-trust-green/20">
+                        <span className="font-mono font-extrabold text-trust-green text-base bg-trust-green-light px-2.5 py-1 rounded-lg border border-trust-green/20 whitespace-nowrap">
                           {tier.rate}
                         </span>
                       </td>

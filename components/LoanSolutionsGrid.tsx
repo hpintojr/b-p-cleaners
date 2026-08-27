@@ -31,7 +31,7 @@ export default function LoanSolutionsGrid({ onApplyClick }: LoanSolutionsGridPro
       title: 'Residential Cleaning',
       tagline: 'A Spotless Home, On Your Schedule',
       icon: <Home className="w-8 h-8" />,
-      rate: '$0.20 / sqft',
+      rate: '$0.35 / sqft',
       frequency: 'One-time to monthly',
       addOns: 'Fridge, oven, windows',
       badge: 'Most Popular',
@@ -48,7 +48,7 @@ export default function LoanSolutionsGrid({ onApplyClick }: LoanSolutionsGridPro
       title: 'Commercial Cleaning',
       tagline: 'Keep Your Business Client-Ready',
       icon: <Building2 className="w-8 h-8" />,
-      rate: '$0.15 / sqft',
+      rate: '$0.30 / sqft',
       frequency: 'Weekly to monthly',
       addOns: 'Windows, breakrooms',
       badge: 'For Offices & Retail',
@@ -123,7 +123,7 @@ export default function LoanSolutionsGrid({ onApplyClick }: LoanSolutionsGridPro
           {solutions.map((item) => (
             <div
               key={item.id}
-              className="group relative p-2 rounded-3xl bg-gradient-to-b from-white to-white/70 backdrop-blur-xl border border-white shadow-[0_12px_35px_-10px_rgba(24,52,55,0.10)] hover:shadow-[0_20px_45px_-12px_rgba(185,139,61,0.18)] transition-all duration-300 hover:-translate-y-1 card-hover-bar"
+              className="group relative p-2 rounded-3xl bg-gradient-to-b from-white to-white/70 backdrop-blur-xl border border-white shadow-[0_12px_35px_-10px_rgba(26,29,31,0.10)] hover:shadow-[0_20px_45px_-12px_rgba(16,185,129,0.18)] transition-all duration-300 hover:-translate-y-1 card-hover-bar"
               id={`solution-card-${item.id}`}
             >
               <div className="rounded-[1.25rem] bg-white border border-af-blue-ice/80 p-7 sm:p-9 flex flex-col justify-between h-full">
@@ -217,11 +217,11 @@ export default function LoanSolutionsGrid({ onApplyClick }: LoanSolutionsGridPro
           </div>
 
           <a
-            href="tel:15550101234"
+            href="tel:19092767631"
             onClick={() => analytics.loanCardCtaClick('call_specialist')}
             className="flex-shrink-0 px-5 py-3 rounded-full bg-af-red hover:bg-af-red/90 text-white font-bold text-xs tracking-wide transition-colors duration-200 flex items-center gap-2 border border-af-red/20"
           >
-            <span>Call (555) 010-1234</span>
+            <span>Call (909) 276-7631</span>
             <ArrowRight className="w-3.5 h-3.5" />
           </a>
         </div>
