@@ -263,6 +263,7 @@ export default function SavingsEstimator() {
                       : 'border-af-blue-ice bg-white text-pv-muted hover:border-af-blue/40'
                   }`}
                   id="property-type-residential"
+                  aria-pressed={propertyType === 'Residential'}
                 >
                   <Home className="w-4 h-4" />
                   Residential
@@ -276,6 +277,7 @@ export default function SavingsEstimator() {
                       : 'border-af-blue-ice bg-white text-pv-muted hover:border-af-blue/40'
                   }`}
                   id="property-type-commercial"
+                  aria-pressed={propertyType === 'Commercial'}
                 >
                   <Building2 className="w-4 h-4" />
                   Commercial

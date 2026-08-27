@@ -50,7 +50,7 @@ export default function Navbar({ onEstimatorClick }: NavbarProps) {
       <div className="bg-gradient-to-r from-af-navy-deep via-af-navy to-af-blue text-white py-1.5 px-4 text-xs">
         <div className="max-w-7xl mx-auto flex items-center justify-between">
           <div className="flex items-center gap-2 font-medium tracking-wide">
-            <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-trust-green/20 text-trust-green text-[10px] font-bold uppercase tracking-wider border border-trust-green/30 whitespace-nowrap">
+            <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-trust-green/20 text-af-blue-light text-[10px] font-bold uppercase tracking-wider border border-trust-green/30 whitespace-nowrap">
               <span className="w-1.5 h-1.5 rounded-full bg-trust-green animate-pulse" />
               Now Booking
             </span>
