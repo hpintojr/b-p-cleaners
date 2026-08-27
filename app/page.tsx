@@ -17,13 +17,13 @@ import FaqAccordion from '../components/FaqAccordion';
 import ClosingCta from '../components/ClosingCta';
 import Footer from '../components/Footer';
 import ScrollDepthTracker from '../components/ScrollDepthTracker';
-import { ShieldCheck, Sparkles } from 'lucide-react';
+import { ShieldCheck, Sparkles, Repeat } from 'lucide-react';
 
 export default function Page() {
   return (
     <div className="min-h-screen flex flex-col justify-between bg-pv-bg" id="app-wrapper">
-      
-      {/* 1. Sticky Navigation (Official Logo, 4-Item Nav, 1-Line Phone, Red CTA) */}
+
+      {/* 1. Sticky Navigation (B&P Cleaners Logo, 4-Item Nav, Phone, Gold CTA) */}
       <Navbar />
 
       {/* 2. S-Tier Split Hero Section */}
@@ -33,7 +33,7 @@ export default function Page() {
 
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-10 items-stretch">
-            
+
             <div className="lg:col-span-7 flex flex-col gap-6 text-left h-full self-stretch" id="hero-left-content">
 
               <HeroBadges />
@@ -45,7 +45,7 @@ export default function Page() {
 
               {/* Hero Subtitle */}
               <p className="text-base sm:text-lg lg:text-xl text-pv-muted max-w-[50ch] leading-relaxed" id="hero-subtext">
-                The money you need, when you need it — with competitive rates as low as <strong className="text-af-navy font-bold">5.99% APR</strong>, terms up to 72 months, and a trusted team that puts you first.
+                Vetted, experienced cleaners for residential and commercial properties — with an <strong className="text-af-navy font-bold">instant online quote</strong>, flexible one-time or recurring plans, and no upfront fees.
               </p>
 
               {/* Benefit Checklist with Double-Bezel Cards */}
@@ -53,7 +53,7 @@ export default function Page() {
 
               </div>{/* end Tier 3 wrapper */}
 
-              {/* Quick Trust Signals Bar — below TP badge on desktop */}
+              {/* Quick Trust Signals Bar — below badges on desktop */}
               <div className="order-2 lg:order-5 pt-4 flex flex-wrap items-center justify-center gap-6 text-[14px] sm:text-xs font-semibold text-pv-muted border-t border-af-blue-ice/60">
                 <div className="flex items-center gap-1.5">
                   <ShieldCheck className="w-4 h-4 text-trust-green" />
@@ -61,20 +61,20 @@ export default function Page() {
                 </div>
                 <div className="flex items-center gap-1.5">
                   <Sparkles className="w-4 h-4 text-af-blue" />
-                  <span>Soft Credit Check Only</span>
+                  <span>Insured &amp; Vetted Cleaners</span>
                 </div>
                 <div className="flex items-center gap-1.5">
-                  <ShieldCheck className="w-4 h-4 text-af-red" />
-                  <span>Texas OCCC &amp; Utah DFI Licensed</span>
+                  <Repeat className="w-4 h-4 text-af-red" />
+                  <span>One-Time or Recurring Plans</span>
                 </div>
               </div>
 
-              {/* ── 4 Random Trustpilot Review Cards (from scraped pool) ── */}
+              {/* ── Customer Review Cards ── */}
               <HeroReviews />
 
             </div>
 
-            {/* Right Column: Free Savings & Loan Estimator */}
+            {/* Right Column: Instant Cleaning Quote Estimator */}
             <div className="lg:col-span-5" id="estimator-anchor">
               <div className="w-full transform transition-all duration-300 hover:shadow-2xl" id="estimator-card-container">
                 <SavingsEstimator />
@@ -88,23 +88,23 @@ export default function Page() {
       {/* 3. 4-Column Bento Stat Metrics */}
       <StatsRow />
 
-      {/* 4. Multi-Lender Comparison Network (SoFi, Prosper, Upgrade, Best Egg) */}
+      {/* 4. Service Tier Comparison */}
       <LenderComparisonTable />
 
       {/* 5. How It Works (3-Step Interactive Stepper) */}
       <ProcessSteps />
 
-      {/* 6. Core Loan Solutions (Personal, Loan Consolidation, Home Improvement, Business) */}
+      {/* 6. Core Cleaning Services (Residential, Commercial, Deep Clean, Move-In/Out) */}
       <LoanSolutionsGrid />
 
-      {/* 7. Trustpilot Live Rating & State Licensing Bar */}
+      {/* 7. Customer Rating & Trust Bar */}
       <TrustBar />
 
-      {/* 8. Verified Borrower Testimonials Wall */}
+      {/* 8. Verified Customer Testimonials Wall */}
       <TestimonialGrid />
 
 
-      {/* 9. Blog & Financial Resources Hub */}
+      {/* 9. Blog & Cleaning Resources Hub */}
       <BlogPreview />
 
       {/* 10. Frequently Asked Questions Accordion */}
@@ -113,7 +113,7 @@ export default function Page() {
       {/* 11. High-Impact Closing CTA Band */}
       <ClosingCta />
 
-      {/* 12. Regulatory Disclosures & Financial Footer */}
+      {/* 12. Site Footer */}
       <Footer />
 
       {/* Analytics: Scroll Depth Tracking */}

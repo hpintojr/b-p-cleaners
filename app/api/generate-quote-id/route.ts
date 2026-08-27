@@ -1,14 +1,14 @@
 /**
  * POST /api/generate-quote-id
- * 
- * Returns the next sequential evaluation reference number.
+ *
+ * Returns the next sequential quote reference number.
  * Uses an atomic server-side counter to guarantee NO duplicates.
- * 
+ *
  * Strategy:
  *   1. If Supabase is enabled → atomic INCREMENT in a `quote_counter` row
  *   2. Fallback → file-based counter with atomic write (fs rename)
- * 
- * Response: { quoteId: 1234, formatted: "AFF-001234" }
+ *
+ * Response: { quoteId: 1234, formatted: "BPC-001234" }
  */
 
 import { NextResponse } from 'next/server';
@@ -57,7 +57,7 @@ function getNextFileCounter(): number {
  */
 async function getNextSupabaseCounter(): Promise<number> {
   const config = backendConfig.supabase;
-  
+
   try {
     // Use Supabase RPC for atomic increment:
     // SELECT increment_quote_counter() — a simple SQL function
@@ -139,7 +139,7 @@ export async function POST() {
       quoteId = getNextFileCounter();
     }
 
-    const formatted = `AFF-${String(quoteId).padStart(6, '0')}`;
+    const formatted = `BPC-${String(quoteId).padStart(6, '0')}`;
 
     return NextResponse.json({ quoteId, formatted });
   } catch (error) {
