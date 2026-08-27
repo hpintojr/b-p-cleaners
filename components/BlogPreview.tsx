@@ -58,7 +58,7 @@ export default function BlogPreview() {
 
   const ArticleCard = ({ article }: { article: typeof articles[0] }) => (
     <article
-      className="group p-2 rounded-3xl bg-gradient-to-b from-white to-white/80 border border-white shadow-[0_10px_30px_-10px_rgba(24,52,55,0.08)] hover:shadow-[0_20px_40px_-12px_rgba(185,139,61,0.18)] transition-all duration-300 hover:-translate-y-1 flex flex-col justify-between card-hover-bar"
+      className="group p-2 rounded-3xl bg-gradient-to-b from-white to-white/80 border border-white shadow-[0_10px_30px_-10px_rgba(26,29,31,0.08)] hover:shadow-[0_20px_40px_-12px_rgba(16,185,129,0.18)] transition-all duration-300 hover:-translate-y-1 flex flex-col justify-between card-hover-bar"
       id={`blog-card-${article.slug}`}
     >
       <div className="rounded-[1.25rem] bg-white border border-af-blue-ice/80 overflow-hidden flex flex-col h-full">
@@ -208,7 +208,7 @@ export default function BlogPreview() {
         </div>
 
         {/* Newsletter Subscribe Card */}
-        <div className="mt-16 rounded-3xl bg-gradient-to-br from-af-navy via-af-navy-deep to-[#14282A] p-8 sm:p-12 text-white shadow-xl relative overflow-hidden border border-white/10">
+        <div className="mt-16 rounded-3xl bg-gradient-to-br from-af-navy via-af-navy-deep to-[#0F1113] p-8 sm:p-12 text-white shadow-xl relative overflow-hidden border border-white/10">
           <div className="absolute top-0 right-0 w-96 h-96 bg-af-blue/20 rounded-full blur-3xl pointer-events-none" />
 
           <div className="relative z-10 grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
@@ -247,7 +247,7 @@ export default function BlogPreview() {
                   />
                   <button
                     type="submit"
-                    className="px-6 py-3.5 rounded-full bg-gradient-to-r from-af-red to-[#B98B3D] hover:from-af-red-hover hover:to-af-red text-white font-bold text-sm shadow-md shadow-af-red/30 transition-all duration-150 whitespace-nowrap active:scale-95 flex items-center justify-center gap-2"
+                    className="px-6 py-3.5 rounded-full bg-gradient-to-r from-af-red to-[#10B981] hover:from-af-red-hover hover:to-af-red text-white font-bold text-sm shadow-md shadow-af-red/30 transition-all duration-150 whitespace-nowrap active:scale-95 flex items-center justify-center gap-2"
                   >
                     <Mail className="w-4 h-4" />
                     Subscribe

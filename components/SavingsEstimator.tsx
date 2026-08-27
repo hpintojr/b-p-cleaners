@@ -64,12 +64,12 @@ export default function SavingsEstimator() {
   const { propertyType, sqft, rooms, frequency, addons } = formData;
 
   // ── High-end pricing logic ──
-  // Residential $0.20/sqft, Commercial $0.15/sqft base rate.
+  // Residential $0.35/sqft, Commercial $0.30/sqft base rate.
   // Deep Clean +$0.10/sqft, Move In/Out +$0.15/sqft, flat add-ons.
   // Frequency discount: Monthly 10%, Bi-Weekly 15%, Weekly 20% off.
   // Displayed as a +/-10% range around the target price.
   const calculateEstimate = () => {
-    const baseRate = propertyType === 'Residential' ? 0.2 : 0.15;
+    const baseRate = propertyType === 'Residential' ? 0.35 : 0.3;
     let subtotal = sqft * baseRate;
 
     if (addons.includes('Deep Clean')) subtotal += sqft * 0.1;
@@ -216,7 +216,7 @@ export default function SavingsEstimator() {
 
   return (
     <div
-      className="w-full bg-white rounded-3xl border border-af-blue-ice shadow-[0_20px_50px_-15px_rgba(24,52,55,0.18)] overflow-hidden"
+      className="w-full bg-white rounded-3xl border border-af-blue-ice shadow-[0_20px_50px_-15px_rgba(26,29,31,0.18)] overflow-hidden"
       id="savings-estimator-card"
     >
       {/* Card Header */}
@@ -409,7 +409,7 @@ export default function SavingsEstimator() {
             {/* Advance Button */}
             <button
               onClick={handleNextStep}
-              className="w-full py-4 rounded-full bg-gradient-to-r from-af-red to-[#B98B3D] hover:from-af-red-hover hover:to-af-red text-white font-bold transition-all duration-200 flex items-center justify-center gap-2 text-base shadow-lg shadow-af-red/25 hover:shadow-xl group active:scale-[0.98]"
+              className="w-full py-4 rounded-full bg-gradient-to-r from-af-red to-[#10B981] hover:from-af-red-hover hover:to-af-red text-white font-bold transition-all duration-200 flex items-center justify-center gap-2 text-base shadow-lg shadow-af-red/25 hover:shadow-xl group active:scale-[0.98]"
               id="estimator-step1-next-btn"
             >
               <span>Get My Quote</span>
@@ -559,7 +559,7 @@ export default function SavingsEstimator() {
           {/* Final Submit Button */}
           <button
             type="submit"
-            className="w-full py-4 rounded-full bg-gradient-to-r from-af-red to-[#B98B3D] hover:from-af-red-hover hover:to-af-red text-white font-bold transition-all duration-200 text-center text-base shadow-lg shadow-af-red/25 mt-2 flex items-center justify-center gap-2 active:scale-[0.98]"
+            className="w-full py-4 rounded-full bg-gradient-to-r from-af-red to-[#10B981] hover:from-af-red-hover hover:to-af-red text-white font-bold transition-all duration-200 text-center text-base shadow-lg shadow-af-red/25 mt-2 flex items-center justify-center gap-2 active:scale-[0.98]"
             id="estimator-step2-submit-btn"
           >
             <span>Confirm My Quote</span>
@@ -632,13 +632,13 @@ export default function SavingsEstimator() {
               Call us and we&apos;ll get you on the schedule in under 5 minutes.
             </p>
             <a
-              href="tel:15550101234"
+              href="tel:19092767631"
               onClick={() => analytics.calculatorCallClick()}
               className="w-full py-3.5 bg-white hover:bg-af-blue-ice text-af-navy font-extrabold rounded-xl transition-all duration-200 flex items-center justify-center gap-2 text-sm tracking-wide shadow-md"
               id="success-hotline-btn"
             >
               <PhoneCall className="w-4 h-4 text-af-red" />
-              Call (555) 010-1234
+              Call (909) 276-7631
             </a>
           </div>
         </div>

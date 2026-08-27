@@ -51,7 +51,7 @@ export default function ClosingCta({ onEstimatorClick }: ClosingCtaProps) {
 
           {/* Card 1: Phone Consultation Card */}
           <a
-            href="tel:15550101234"
+            href="tel:19092767631"
             onClick={() => analytics.closingCtaCallClick()}
             className="group p-6 rounded-3xl bg-white/10 hover:bg-white/15 border border-white/15 hover:border-white/30 backdrop-blur-xl text-left transition-all duration-300 hover:-translate-y-1 shadow-xl flex flex-col justify-between card-hover-bar"
             id="oversized-call-button"
@@ -64,7 +64,7 @@ export default function ClosingCta({ onEstimatorClick }: ClosingCtaProps) {
                 Direct Phone Line
               </span>
               <span className="block text-2xl sm:text-3xl font-extrabold font-mono tracking-tight text-white mt-1">
-                (555) 010-1234
+                (909) 276-7631
               </span>
               <p className="text-xs text-white/70 mt-2 leading-relaxed">
                 Speak directly with our team about your property in under 5 minutes.

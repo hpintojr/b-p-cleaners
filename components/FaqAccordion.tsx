@@ -128,11 +128,11 @@ export default function FaqAccordion() {
           </div>
 
           <a
-            href="tel:15550101234"
+            href="tel:19092767631"
             onClick={() => analytics.faqCallClick()}
             className="flex-shrink-0 px-5 py-2.5 rounded-full bg-af-navy hover:bg-af-blue text-white font-bold text-xs tracking-wide transition-colors duration-200 flex items-center gap-2"
           >
-            <span>Call (555) 010-1234</span>
+            <span>Call (909) 276-7631</span>
             <ArrowRight className="w-3.5 h-3.5" />
           </a>
         </div>
