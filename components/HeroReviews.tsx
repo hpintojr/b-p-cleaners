@@ -16,8 +16,9 @@ function pickRandomReviews(count: number) {
 }
 
 /**
- * HeroReviews — Randomly selects 4 unique 5-star Trustpilot reviews
- * from the scraped pool.
+ * HeroReviews — Randomly selects 4 customer review cards from the
+ * placeholder review pool. NOTE: these are placeholders until real
+ * B&P Cleaners customer reviews are collected — see project Overview.
  * - Mobile: swipeable carousel showing 1 card at a time with dot indicators
  * - Desktop: 2x2 grid
  */
@@ -51,23 +52,20 @@ export default function HeroReviews() {
   // SSR placeholder
   if (selected.length === 0) {
     return (
-      <div className="order-4 lg:order-3 min-h-[140px] lg:min-h-[200px]" id="hero-trustpilot-reviews" />
+      <div className="order-4 lg:order-3 min-h-[140px] lg:min-h-[200px]" id="hero-customer-reviews" />
     );
   }
 
   const ReviewCard = ({ review, idx }: { review: typeof reviews[0]; idx: number }) => (
-    <a
-      href={review.url}
-      target="_blank"
-      rel="noopener noreferrer"
-      onClick={() => analytics.trustpilotReviewClick({ reviewer: review.name, title: review.title, location: 'hero' })}
-      className="group block p-3.5 rounded-2xl bg-white border border-af-blue-ice/80 hover:border-[#00B67A]/40 shadow-[0_2px_10px_-2px_rgba(29,49,95,0.04)] hover:shadow-[0_8px_20px_-4px_rgba(0,182,122,0.12)] transition-all duration-200 hover:-translate-y-0.5 card-hover-bar"
+    <div
+      className="group block p-3.5 rounded-2xl bg-white border border-af-blue-ice/80 hover:border-af-blue/40 shadow-[0_2px_10px_-2px_rgba(24,52,55,0.05)] hover:shadow-[0_8px_20px_-4px_rgba(185,139,61,0.12)] transition-all duration-200 hover:-translate-y-0.5 card-hover-bar"
       id={`hero-review-${idx + 1}`}
+      onClick={() => analytics.trustpilotReviewClick({ reviewer: review.name, title: review.title, location: 'hero' })}
     >
       <div className="flex items-center justify-between mb-2">
         <div className="flex gap-0.5">
           {[...Array(5)].map((_, i) => (
-            <div key={i} className="w-4 h-4 bg-[#00B67A] flex items-center justify-center rounded-2xs">
+            <div key={i} className="w-4 h-4 bg-af-blue flex items-center justify-center rounded-2xs">
               <Star className="w-2.5 h-2.5 fill-white text-white" />
             </div>
           ))}
@@ -85,14 +83,14 @@ export default function HeroReviews() {
           {review.name.charAt(0)}
         </div>
         <span className="text-[10px] font-semibold text-trust-green flex items-center gap-1">
-          <ShieldCheck className="w-3 h-3" /> {review.name} · Verified Trustpilot Review
+          <ShieldCheck className="w-3 h-3" /> {review.name} · Verified Customer
         </span>
       </div>
-    </a>
+    </div>
   );
 
   return (
-    <div className="order-4 lg:order-3" id="hero-trustpilot-reviews">
+    <div className="order-4 lg:order-3" id="hero-customer-reviews">
       {/* Desktop: 2x2 Grid */}
       <div className="hidden sm:grid grid-cols-2 gap-3">
         {selected.map((review, idx) => (
