@@ -4,9 +4,9 @@ import React, { useState, useEffect, useSyncExternalStore } from 'react';
 
 const WORDS = [
   { text: 'a spotless home', highlight: 'from-af-blue to-af-blue-cyan' },
-  { text: 'a spotless office', highlight: 'from-af-red to-[#C9A05C]' },
+  { text: 'a spotless office', highlight: 'from-af-red to-[#34D399]' },
   { text: 'move-in ready spaces', highlight: 'from-af-navy to-af-blue' },
-  { text: 'recurring peace of mind', highlight: 'from-[#1F6662] to-trust-green' },
+  { text: 'recurring peace of mind', highlight: 'from-[#059669] to-trust-green' },
 ];
 
 function subscribeReducedMotion(callback: () => void) {

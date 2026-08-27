@@ -58,7 +58,7 @@ export default function HeroReviews() {
 
   const ReviewCard = ({ review, idx }: { review: typeof reviews[0]; idx: number }) => (
     <div
-      className="group block p-3.5 rounded-2xl bg-white border border-af-blue-ice/80 hover:border-af-blue/40 shadow-[0_2px_10px_-2px_rgba(24,52,55,0.05)] hover:shadow-[0_8px_20px_-4px_rgba(185,139,61,0.12)] transition-all duration-200 hover:-translate-y-0.5 card-hover-bar"
+      className="group block p-3.5 rounded-2xl bg-white border border-af-blue-ice/80 hover:border-af-blue/40 shadow-[0_2px_10px_-2px_rgba(26,29,31,0.05)] hover:shadow-[0_8px_20px_-4px_rgba(16,185,129,0.12)] transition-all duration-200 hover:-translate-y-0.5 card-hover-bar"
       id={`hero-review-${idx + 1}`}
       onClick={() => analytics.trustpilotReviewClick({ reviewer: review.name, title: review.title, location: 'hero' })}
     >
