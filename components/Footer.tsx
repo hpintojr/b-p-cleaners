@@ -39,7 +39,7 @@ export default function Footer() {
 
             <div className="flex flex-wrap items-center gap-2">
               <div
-                className="inline-flex items-center gap-2 text-xs font-semibold text-trust-green bg-white/5 border border-white/10 px-3.5 py-2 rounded-xl"
+                className="inline-flex items-center gap-2 text-xs font-semibold text-af-blue-light bg-white/5 border border-white/10 px-3.5 py-2 rounded-xl"
                 id="footer-insured-badge"
               >
                 <ShieldCheck className="w-4 h-4" />
@@ -50,7 +50,7 @@ export default function Footer() {
 
           {/* Quick Navigation Column */}
           <div className="md:col-span-2 space-y-4">
-            <h4 className="text-xs font-extrabold text-af-red uppercase tracking-wider">
+            <h4 className="text-xs font-extrabold text-af-blue-light uppercase tracking-wider">
               Company
             </h4>
             <ul className="space-y-3 text-xs sm:text-sm text-white/80 font-medium">
@@ -89,7 +89,7 @@ export default function Footer() {
 
           {/* Cleaning Services Column */}
           <div className="md:col-span-3 space-y-4">
-            <h4 className="text-xs font-extrabold text-af-red uppercase tracking-wider">
+            <h4 className="text-xs font-extrabold text-af-blue-light uppercase tracking-wider">
               Cleaning Services
             </h4>
             <ul className="space-y-3 text-xs sm:text-sm text-white/80 font-medium">
@@ -123,7 +123,7 @@ export default function Footer() {
 
           {/* Contact Column */}
           <div className="md:col-span-3 space-y-4">
-            <h4 className="text-xs font-extrabold text-af-red uppercase tracking-wider">
+            <h4 className="text-xs font-extrabold text-af-blue-light uppercase tracking-wider">
               Contact &amp; Support
             </h4>
             <ul className="space-y-3.5 text-xs sm:text-sm text-white/80 font-medium">

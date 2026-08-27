@@ -81,7 +81,7 @@ export default function GlowMovingButton({
   const inner = (
     <span
       ref={containerRef}
-      className={`relative inline-flex items-center justify-center rounded-full bg-gradient-to-r from-af-red to-[#E63935] ${className}`}
+      className={`relative inline-flex items-center justify-center rounded-full bg-gradient-to-r from-af-red to-[#10B981] ${className}`}
       id={id}
     >
       {/* Animated border mask layer */}
