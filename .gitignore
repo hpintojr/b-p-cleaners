@@ -1,0 +1,13 @@
+node_modules/
+.next/
+coverage/
+.DS_Store
+*.log
+.env*
+!.env.example
+data/quote-counter.json
+tsconfig.tsbuildinfo
+AGENTS.md
+CLAUDE.md
+metadata.json
+TODO.md
