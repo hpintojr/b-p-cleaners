@@ -1,8 +1,9 @@
 import type { Metadata } from 'next';
 
 export const metadata: Metadata = {
-  title: 'Financial Resources & Blog | Advantage First Financial',
-  description: 'Expert insights on debt consolidation, credit optimization, interest rate trends, and personal loan strategies from the Advantage First Financial editorial team.',
+  title: 'Cleaning Tips & Resources',
+  description: 'Practical cleaning tips, maintenance schedules, and guides for homeowners and businesses across Southern California from the B&P Cleaners team.',
+  alternates: { canonical: '/blog' },
 };
 
 export default function BlogLayout({ children }: { children: React.ReactNode }) {

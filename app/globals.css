@@ -10,10 +10,10 @@
   --color-af-blue-cyan: #6EE7B7;
   --color-af-blue-ice: #D1FAE5;
   --color-af-blue-soft: #F4FBF8;
-  --color-af-red: #0D9488;
-  --color-af-red-hover: #0F766E;
+  --color-af-red: #0F766E;
+  --color-af-red-hover: #115E59;
   --color-af-red-light: #CCFBF1;
-  --color-trust-green: #10B981;
+  --color-trust-green: #047857;
   --color-trust-green-light: #ECFDF5;
 
   --color-pv-bg: #F7F8F7;
@@ -24,7 +24,7 @@
   --color-pv-primary: #1A1D1F;
   --color-pv-cta: #10B981;
   --color-pv-cta-text: #FFFFFF;
-  --color-pv-accent: #0D9488;
+  --color-pv-accent: #0F766E;
 
   --font-display: var(--font-source-sans), -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
   --font-body: var(--font-lato), -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;

@@ -13,6 +13,7 @@ import TestimonialGrid from '../components/TestimonialGrid';
 import TrustpilotCarousel from '../components/TrustpilotCarousel';
 import HeroReviews from '../components/HeroReviews';
 import HeroBadges from '../components/HeroBadges';
+import ServiceAreas from '../components/ServiceAreas';
 import FaqAccordion from '../components/FaqAccordion';
 import ClosingCta from '../components/ClosingCta';
 import Footer from '../components/Footer';
@@ -23,8 +24,18 @@ export default function Page() {
   return (
     <div className="min-h-screen flex flex-col justify-between bg-pv-bg" id="app-wrapper">
 
+      {/* Skip link for keyboard/screen-reader users */}
+      <a
+        href="#main-content"
+        className="sr-only focus:not-sr-only focus:absolute focus:top-3 focus:left-3 focus:z-[100] focus:px-4 focus:py-2 focus:rounded-lg focus:bg-af-navy focus:text-white focus:font-bold focus:text-sm focus:shadow-lg"
+      >
+        Skip to main content
+      </a>
+
       {/* 1. Sticky Navigation (B&P Cleaners Logo, 4-Item Nav, Phone, Gold CTA) */}
       <Navbar />
+
+      <main id="main-content">
 
       {/* 2. S-Tier Split Hero Section */}
       <section className="relative overflow-hidden pt-4 pb-12 sm:pt-14 sm:pb-16 lg:pt-18 lg:pb-20 bg-mesh-hero" id="hero-split-section">
@@ -45,7 +56,7 @@ export default function Page() {
 
               {/* Hero Subtitle */}
               <p className="text-base sm:text-lg lg:text-xl text-pv-muted max-w-[50ch] leading-relaxed" id="hero-subtext">
-                Vetted, experienced cleaners for residential and commercial properties — with an <strong className="text-af-navy font-bold">instant online quote</strong>, flexible one-time or recurring plans, and no upfront fees.
+                Vetted, experienced cleaners for residential and commercial properties across Southern California — with an <strong className="text-af-navy font-bold">instant online quote</strong>, flexible one-time or recurring plans, and no upfront fees.
               </p>
 
               {/* Benefit Checklist with Double-Bezel Cards */}
@@ -107,11 +118,16 @@ export default function Page() {
       {/* 9. Blog & Cleaning Resources Hub */}
       <BlogPreview />
 
+      {/* 9b. Southern California Service Areas */}
+      <ServiceAreas />
+
       {/* 10. Frequently Asked Questions Accordion */}
       <FaqAccordion />
 
       {/* 11. High-Impact Closing CTA Band */}
       <ClosingCta />
+
+      </main>
 
       {/* 12. Site Footer */}
       <Footer />
