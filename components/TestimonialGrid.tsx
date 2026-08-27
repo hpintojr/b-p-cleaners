@@ -45,7 +45,7 @@ export default function TestimonialGrid() {
 
   const ReviewCard = ({ rev }: { rev: typeof reviews[0] }) => (
     <div
-      className="p-2 rounded-3xl bg-gradient-to-b from-af-blue-soft to-white border border-af-blue-ice shadow-[0_10px_30px_-10px_rgba(24,52,55,0.08)] hover:shadow-[0_20px_40px_-12px_rgba(185,139,61,0.15)] transition-all duration-300 hover:-translate-y-1 flex flex-col justify-between card-hover-bar"
+      className="p-2 rounded-3xl bg-gradient-to-b from-af-blue-soft to-white border border-af-blue-ice shadow-[0_10px_30px_-10px_rgba(26,29,31,0.08)] hover:shadow-[0_20px_40px_-12px_rgba(16,185,129,0.15)] transition-all duration-300 hover:-translate-y-1 flex flex-col justify-between card-hover-bar"
       id={`review-card-${rev.id}`}
     >
       <div className="rounded-[1.25rem] bg-white border border-af-blue-ice/80 p-7 sm:p-8 flex flex-col justify-between h-full">
