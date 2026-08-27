@@ -128,11 +128,11 @@ export default function Footer() {
             </h4>
             <ul className="space-y-3.5 text-xs sm:text-sm text-white/80 font-medium">
               <li>
-                <a href="tel:15550101234" onClick={() => analytics.footerCallClick()} className="hover:text-white font-mono font-bold text-base text-white flex items-center gap-2.5 transition-colors">
+                <a href="tel:19092767631" onClick={() => analytics.footerCallClick()} className="hover:text-white font-mono font-bold text-base text-white flex items-center gap-2.5 transition-colors">
                   <div className="w-8 h-8 rounded-lg bg-af-red flex items-center justify-center text-white flex-shrink-0">
                     <Phone className="w-4 h-4" />
                   </div>
-                  (555) 010-1234
+                  (909) 276-7631
                 </a>
               </li>
               <li className="flex items-center gap-2.5">
@@ -148,8 +148,8 @@ export default function Footer() {
                   <MapPin className="w-4 h-4 text-af-blue-light" />
                 </div>
                 <span className="leading-relaxed">
-                  Serving residential &amp; commercial<br />
-                  properties across the metro area
+                  231 E Alessandro Blvd. Suite A-208<br />
+                  Riverside, CA 92508
                 </span>
               </li>
             </ul>
@@ -172,7 +172,7 @@ export default function Footer() {
           </p>
           <p id="licensing">
             For questions, contact Benny &amp; Penny Cleaning Services. <br />
-            <span className="text-white/70">hello@bpcleaners.com | (555) 010-1234</span>
+            <span className="text-white/70">hello@bpcleaners.com | (909) 276-7631</span>
           </p>
         </div>
 
