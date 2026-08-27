@@ -17,16 +17,14 @@ const lato = Lato({
 });
 
 export const metadata: Metadata = {
-  title: 'Advantage First Financial: Tailored Loan Solutions',
-  description: 'Achieve your financial goals with Advantage First. Consolidate credit cards or boost your budget. Amounts up to $100,000 with competitive rates as low as 5.99% APR.',
+  title: 'B&P Cleaners: Residential & Commercial Cleaning Services',
+  description: 'Get an instant online quote from Benny & Penny Cleaning Services. Vetted, experienced cleaners for residential and commercial properties — one-time, weekly, bi-weekly, or monthly.',
   icons: {
     icon: [
-      { url: '/favicon.ico?v=2' },
-      { url: '/images/torch_logo.png', sizes: '32x32', type: 'image/png' },
-      { url: '/images/torch_logo.png', sizes: '192x192', type: 'image/png' },
+      { url: '/images/bp-cleaners-logo.svg', type: 'image/svg+xml' },
     ],
-    shortcut: '/favicon.ico?v=2',
-    apple: '/images/torch_logo.png',
+    shortcut: '/images/bp-cleaners-logo.svg',
+    apple: '/images/bp-cleaners-logo.svg',
   },
 };
 
@@ -37,11 +35,6 @@ export default function RootLayout({children}: {children: React.ReactNode}) {
         <PostHogProvider>
           {children}
         </PostHogProvider>
-        {/* Trustpilot Widget Bootstrap Script */}
-        <Script
-          src="//widget.trustpilot.com/bootstrap/v5/tp.widget.bootstrap.min.js"
-          strategy="afterInteractive"
-        />
       </body>
     </html>
   );
