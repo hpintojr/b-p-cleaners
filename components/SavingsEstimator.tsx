@@ -64,12 +64,12 @@ export default function SavingsEstimator() {
   const { propertyType, sqft, rooms, frequency, addons } = formData;
 
   // ── High-end pricing logic ──
-  // Residential $0.35/sqft, Commercial $0.30/sqft base rate.
+  // Residential $0.30/sqft, Commercial $0.25/sqft base rate.
   // Deep Clean +$0.10/sqft, Move In/Out +$0.15/sqft, flat add-ons.
-  // Frequency discount: Monthly 5%, Bi-Weekly 10%, Weekly 15% off.
+  // Frequency discount: Monthly 10%, Bi-Weekly 15%, Weekly 20% off.
   // Displayed as a +/-10% range around the target price.
   const calculateEstimate = () => {
-    const baseRate = propertyType === 'Residential' ? 0.35 : 0.3;
+    const baseRate = propertyType === 'Residential' ? 0.3 : 0.25;
     let subtotal = sqft * baseRate;
 
     if (addons.includes('Deep Clean')) subtotal += sqft * 0.1;
@@ -79,9 +79,9 @@ export default function SavingsEstimator() {
     if (addons.includes('Interior Windows')) subtotal += 75;
 
     let discountMultiplier = 1.0;
-    if (frequency === 'Monthly') discountMultiplier = 0.95;
-    if (frequency === 'Bi-Weekly') discountMultiplier = 0.9;
-    if (frequency === 'Weekly') discountMultiplier = 0.85;
+    if (frequency === 'Monthly') discountMultiplier = 0.9;
+    if (frequency === 'Bi-Weekly') discountMultiplier = 0.85;
+    if (frequency === 'Weekly') discountMultiplier = 0.8;
 
     const targetPrice = subtotal * discountMultiplier;
     const minPrice = Math.round(targetPrice * 0.9);
@@ -351,9 +351,9 @@ export default function SavingsEstimator() {
                 className="w-full px-4 py-3 rounded-xl border border-af-blue-ice focus:border-af-blue text-sm font-semibold focus:outline-none focus:ring-1 focus:ring-af-blue bg-white text-af-navy"
               >
                 <option value="One-Time">One-Time</option>
-                <option value="Weekly">Weekly — Save 15%</option>
-                <option value="Bi-Weekly">Bi-Weekly — Save 10%</option>
-                <option value="Monthly">Monthly — Save 5%</option>
+                <option value="Weekly">Weekly — Save 20%</option>
+                <option value="Bi-Weekly">Bi-Weekly — Save 15%</option>
+                <option value="Monthly">Monthly — Save 10%</option>
               </select>
             </div>
 

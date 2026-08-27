@@ -35,7 +35,7 @@ export default function LenderComparisonTable({ onApplyClick }: LenderComparison
       name: 'Standard Clean',
       badge: 'Most Popular',
       badgeColor: 'bg-af-blue-ice text-af-blue',
-      rate: '$0.35 / sqft',
+      rate: '$0.30 / sqft',
       frequency: 'One-time or recurring',
       features: 'Dusting, vacuuming, kitchens & bathrooms, trash removal',
     },
