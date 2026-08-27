@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useState } from 'react';
-import { ChevronDown, HelpCircle, Phone, ArrowRight, ShieldCheck } from 'lucide-react';
+import { ChevronDown, HelpCircle, Phone, ArrowRight } from 'lucide-react';
 import { analytics } from '@/lib/analytics';
 
 export default function FaqAccordion() {
@@ -9,29 +9,29 @@ export default function FaqAccordion() {
 
   const faqs = [
     {
-      question: 'What types of loans does Advantage First connect me with?',
-      category: 'Loan Products',
-      answer: 'Advantage First connects you with top-tier lending partners offering personal loans, consolidation loans, home improvement loans, and business-purpose loans. Loan amounts range up to $100,000 with competitive fixed rates starting as low as 5.99% APR and flexible repayment terms from 12 to 72 months.',
+      question: 'How is my quote calculated?',
+      category: 'Pricing',
+      answer: 'Your quote is based on property type (residential or commercial), square footage, room count, how often you want service, and any add-ons like inside the fridge, oven, or interior windows. You get an instant price range, and the final price is confirmed before your appointment.',
     },
     {
-      question: 'Will checking my loan options affect my credit score?',
-      category: 'Credit & Privacy',
-      answer: 'No. Checking your pre-qualified loan options with Advantage First involves a soft credit inquiry, which has zero impact on your credit score. A hard credit check is only initiated later if you formally accept and finalize a specific loan contract with a chosen lending partner.',
+      question: 'Do I need to be home for the cleaning?',
+      category: 'Booking',
+      answer: 'No. Many customers provide entry instructions (a lockbox code, garage code, or key with a neighbor) so cleaners can access the property while you\'re at work. You\'ll get a confirmation with your cleaner\'s arrival window either way.',
     },
     {
-      question: 'How fast can I receive funds into my bank account?',
-      category: 'Funding Process',
-      answer: 'Many lenders across our network provide automated, instant pre-approval decisions. Once you select an offer and complete basic income verification, funds are typically deposited directly into your designated bank account within 24 to 48 business hours.',
+      question: 'When am I charged for my cleaning?',
+      category: 'Billing',
+      answer: 'You\'re only billed after the cleaning is completed. For recurring plans, your card on file is charged automatically after each visit — no manual invoices, no surprises.',
     },
     {
-      question: 'Are there any hidden fees or prepayment penalties?',
-      category: 'Fees & Transparency',
-      answer: 'Advantage First operates with 100% pricing transparency. We charge zero upfront fees for using our comparison platform. Additionally, lending partners in our network do not charge prepayment penalties — allowing you to pay off your balance early anytime with zero penalty.',
+      question: 'What\'s the difference between Standard and Deep Clean?',
+      category: 'Service Types',
+      answer: 'Standard Clean covers dusting, vacuuming, kitchens, bathrooms, and trash removal — ideal for recurring maintenance. Deep Clean adds baseboards, inside cabinets, and detailed scrubbing top to bottom, and is recommended for your first visit or after a long gap between cleanings.',
     },
     {
-      question: 'How do fixed-rate consolidation loans help me save money?',
-      category: 'Consolidation Strategy',
-      answer: 'Credit cards typically carry variable 20%–29% interest rates that compound continuously. By consolidating high-interest balances into a single, low fixed-rate personal loan (as low as 5.99% APR), more of your monthly payment goes toward principal rather than interest, saving thousands of dollars and cutting years off your repayment timeline.',
+      question: 'Can I switch between one-time and recurring service?',
+      category: 'Flexibility',
+      answer: 'Yes. Start with a one-time Deep Clean or Move-In/Move-Out clean, then switch to a recurring Standard Clean plan — weekly, bi-weekly, or monthly — and lock in a frequency discount at any time.',
     },
   ];
 
@@ -44,9 +44,9 @@ export default function FaqAccordion() {
   };
 
   return (
-    <section className="py-24 sm:py-32 bg-mesh-hero relative overflow-hidden" id="faq-objection-section">
+    <section className="py-24 sm:py-32 bg-mesh-hero relative overflow-hidden" id="faq-section">
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-        
+
         {/* Header */}
         <div className="text-center max-w-2xl mx-auto mb-16 sm:mb-20" id="faq-header">
           <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white border border-af-blue-ice shadow-xs mb-4">
@@ -60,7 +60,7 @@ export default function FaqAccordion() {
             Frequently Asked Questions
           </h2>
           <p className="text-base sm:text-lg text-pv-muted mt-3 leading-relaxed">
-            Everything you need to know about our loan options, interest rates, and approval process.
+            Everything you need to know about pricing, booking, and what to expect.
           </p>
         </div>
 
@@ -69,11 +69,11 @@ export default function FaqAccordion() {
           {faqs.map((faq, idx) => {
             const isOpen = activeIndex === idx;
             return (
-              <div 
-                key={idx} 
+              <div
+                key={idx}
                 className={`rounded-2xl border transition-all duration-200 overflow-hidden card-hover-bar ${
-                  isOpen 
-                    ? 'bg-white border-af-blue/50 shadow-md shadow-af-blue/5 ring-1 ring-af-blue/20' 
+                  isOpen
+                    ? 'bg-white border-af-blue/50 shadow-md shadow-af-blue/5 ring-1 ring-af-blue/20'
                     : 'bg-white/80 hover:bg-white border-af-blue-ice shadow-xs'
                 }`}
                 id={`faq-item-${idx}`}
@@ -99,8 +99,8 @@ export default function FaqAccordion() {
                 </button>
 
                 {isOpen && (
-                  <div 
-                    id={`faq-answer-${idx}`} 
+                  <div
+                    id={`faq-answer-${idx}`}
                     className="px-6 sm:px-8 pb-6 pt-1 text-sm text-pv-muted leading-relaxed border-t border-af-blue-ice/60 bg-af-blue-soft/30"
                   >
                     <p className="max-w-[75ch]">{faq.answer}</p>
@@ -119,20 +119,20 @@ export default function FaqAccordion() {
             </div>
             <div>
               <h4 className="text-sm font-bold text-af-navy">
-                Have a specific question about your loan options?
+                Have a question about your property?
               </h4>
               <p className="text-xs text-pv-muted">
-                Speak directly with an Advantage First specialist at no cost.
+                Speak directly with our team at no cost.
               </p>
             </div>
           </div>
 
-          <a 
-            href="tel:18003441202" 
+          <a
+            href="tel:15550101234"
             onClick={() => analytics.faqCallClick()}
             className="flex-shrink-0 px-5 py-2.5 rounded-full bg-af-navy hover:bg-af-blue text-white font-bold text-xs tracking-wide transition-colors duration-200 flex items-center gap-2"
           >
-            <span>Call (800) 344-1202</span>
+            <span>Call (555) 010-1234</span>
             <ArrowRight className="w-3.5 h-3.5" />
           </a>
         </div>

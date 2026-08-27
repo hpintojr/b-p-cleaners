@@ -57,16 +57,16 @@ export default function BlogPreview() {
   };
 
   const ArticleCard = ({ article }: { article: typeof articles[0] }) => (
-    <article 
-      className="group p-2 rounded-3xl bg-gradient-to-b from-white to-white/80 border border-white shadow-[0_10px_30px_-10px_rgba(29,49,95,0.08)] hover:shadow-[0_20px_40px_-12px_rgba(15,117,188,0.18)] transition-all duration-300 hover:-translate-y-1 flex flex-col justify-between card-hover-bar"
+    <article
+      className="group p-2 rounded-3xl bg-gradient-to-b from-white to-white/80 border border-white shadow-[0_10px_30px_-10px_rgba(24,52,55,0.08)] hover:shadow-[0_20px_40px_-12px_rgba(185,139,61,0.18)] transition-all duration-300 hover:-translate-y-1 flex flex-col justify-between card-hover-bar"
       id={`blog-card-${article.slug}`}
     >
       <div className="rounded-[1.25rem] bg-white border border-af-blue-ice/80 overflow-hidden flex flex-col h-full">
-        
+
         {/* Article Image Container */}
         <Link href={`/blog/${article.slug}`} onClick={() => analytics.blogArticleClick({ slug: article.slug, title: article.title, category: article.category })} className="block relative h-52 w-full overflow-hidden bg-af-blue-soft">
-          <Image 
-            src={article.heroImage} 
+          <Image
+            src={article.heroImage}
             alt={article.title}
             fill
             className="object-cover group-hover:scale-105 transition-transform duration-500 ease-out"
@@ -109,7 +109,7 @@ export default function BlogPreview() {
 
           {/* Read More Link */}
           <div className="pt-5 mt-5 border-t border-af-blue-ice/60 flex items-center justify-between">
-            <Link 
+            <Link
               href={`/blog/${article.slug}`}
               onClick={() => analytics.blogArticleClick({ slug: article.slug, title: article.title, category: article.category })}
               className="inline-flex items-center gap-1.5 text-xs sm:text-sm font-bold text-af-blue group-hover:text-af-navy transition-colors"
@@ -119,7 +119,7 @@ export default function BlogPreview() {
               <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
             </Link>
             <span className="text-[10px] text-pv-muted uppercase font-bold tracking-wider">
-              Advantage First
+              B&amp;P Cleaners
             </span>
           </div>
         </div>
@@ -131,26 +131,26 @@ export default function BlogPreview() {
   return (
     <section className="py-24 sm:py-32 bg-mesh-hero relative overflow-hidden" id="blog-preview-section">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-        
+
         {/* Section Header */}
         <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-16 sm:mb-20">
           <div>
             <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white border border-af-blue-ice shadow-xs mb-4">
               <BookOpen className="w-3.5 h-3.5 text-af-blue" />
               <span className="text-[11px] font-extrabold uppercase tracking-widest text-af-navy">
-                Financial Wellbeing Hub
+                Cleaning Tips Hub
               </span>
             </div>
             <h2 className="font-display text-3xl sm:text-4xl lg:text-5xl font-extrabold text-af-navy tracking-tight leading-tight">
-              Resources for Financial Management
+              Tips for a Cleaner Home &amp; Office
             </h2>
             <p className="text-base sm:text-lg text-pv-muted mt-3 max-w-xl">
-              Expert articles and guides to help you turn your financial dreams into reality and master your credit.
+              Guides and checklists to help you keep your space spotless between visits.
             </p>
           </div>
 
           <div className="flex-shrink-0">
-            <Link 
+            <Link
               href="/blog"
               onClick={() => analytics.blogViewAllClick()}
               className="inline-flex items-center gap-2 px-6 py-3.5 rounded-full bg-white border border-af-blue-ice hover:border-af-blue/40 text-af-navy hover:text-af-blue font-bold text-sm shadow-xs hover:shadow-md transition-all duration-200"
@@ -207,21 +207,22 @@ export default function BlogPreview() {
           </div>
         </div>
 
-        {/* Substack-style Newsletter Subscribe Card */}
-        <div className="mt-16 rounded-3xl bg-gradient-to-br from-af-navy via-af-navy-deep to-[#142345] p-8 sm:p-12 text-white shadow-xl relative overflow-hidden border border-white/10">
+        {/* Newsletter Subscribe Card */}
+        <div className="mt-16 rounded-3xl bg-gradient-to-br from-af-navy via-af-navy-deep to-[#14282A] p-8 sm:p-12 text-white shadow-xl relative overflow-hidden border border-white/10">
           <div className="absolute top-0 right-0 w-96 h-96 bg-af-blue/20 rounded-full blur-3xl pointer-events-none" />
-          
+
           <div className="relative z-10 grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
             <div className="lg:col-span-7 space-y-3">
               <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white/20 border border-white/30 text-xs font-bold text-white shadow-lg shadow-black/10">
-                <Sparkles className="w-3.5 h-3.5 text-af-red" />
-                <span>Free Monthly Insights</span>
+                <Sparkles className="w-3.5 h-3.5 text-af-blue-cyan" />
+                <span>Free Monthly Cleaning Tips</span>
               </div>
               <h3 className="text-2xl sm:text-3xl font-extrabold tracking-tight">
-                Stay Ahead of Rate Cuts &amp; Loan Strategies
+                Stay Ahead of the Mess
               </h3>
               <p className="text-sm text-white/80 max-w-xl leading-relaxed">
-                Join the Smart Money and start receiving our monthly digest to get the inside edge on interest rate trends, consolidation tactics, and credit optimization.
+                Join our list for seasonal deep-clean checklists, stain-removal tricks, and first
+                access to seasonal promotions.
               </p>
             </div>
 
@@ -231,23 +232,24 @@ export default function BlogPreview() {
                   <CheckCircle className="w-6 h-6 text-trust-green flex-shrink-0" />
                   <div>
                     <strong className="block text-sm font-bold">You&apos;re subscribed!</strong>
-                    <span className="text-xs text-white/80">Check your inbox for our latest borrowing blueprint.</span>
+                    <span className="text-xs text-white/80">Check your inbox for a welcome note.</span>
                   </div>
                 </div>
               ) : (
                 <form onSubmit={handleSubscribe} className="flex flex-col sm:flex-row gap-2.5">
-                  <input 
+                  <input
                     type="email"
                     required
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
-                    placeholder="Enter your work or personal email"
+                    placeholder="Enter your email"
                     className="w-full px-4 py-3.5 rounded-full bg-white/10 border border-white/20 text-white placeholder-white/50 text-sm focus:outline-none focus:ring-2 focus:ring-af-blue-cyan focus:bg-white/15 transition-all"
                   />
                   <button
                     type="submit"
-                    className="px-6 py-3.5 rounded-full bg-gradient-to-r from-af-red to-[#E63935] hover:from-[#C02926] hover:to-af-red text-white font-bold text-sm shadow-md shadow-af-red/30 transition-all duration-150 whitespace-nowrap active:scale-95"
+                    className="px-6 py-3.5 rounded-full bg-gradient-to-r from-af-red to-[#B98B3D] hover:from-af-red-hover hover:to-af-red text-white font-bold text-sm shadow-md shadow-af-red/30 transition-all duration-150 whitespace-nowrap active:scale-95 flex items-center justify-center gap-2"
                   >
+                    <Mail className="w-4 h-4" />
                     Subscribe
                   </button>
                 </form>

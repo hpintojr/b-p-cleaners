@@ -2,11 +2,14 @@
 
 /**
  * PostHog Analytics Provider
- * 
+ *
  * Wraps the app to initialize PostHog tracking.
  * Auto-captures page views and enables custom event tracking.
- * 
- * Replace POSTHOG_API_KEY with your actual PostHog project API key.
+ *
+ * Reads the project API key from NEXT_PUBLIC_POSTHOG_KEY (see .env.example).
+ * No key = analytics silently disabled — never falls back to a hardcoded
+ * key, since that would send B&P Cleaners traffic to someone else's
+ * PostHog project.
  */
 
 import posthog from 'posthog-js';
@@ -14,14 +17,11 @@ import { PostHogProvider as PHProvider } from 'posthog-js/react';
 import { Suspense, useEffect } from 'react';
 import { usePathname, useSearchParams } from 'next/navigation';
 
-// ══════════════════════════════════════════════════════════════════
-//  CONFIGURATION — Replace with your PostHog project API key
-// ════════════════════════════════════════════════════════════════
-const POSTHOG_API_KEY = 'phc_qaSHwuNdLr4zzkKG9RHF22q9EaXGfksHu7eJJwNFHpnK';
-const POSTHOG_HOST = 'https://us.i.posthog.com'; // US cloud; use 'https://eu.i.posthog.com' for EU
+const POSTHOG_API_KEY = process.env.NEXT_PUBLIC_POSTHOG_KEY || '';
+const POSTHOG_HOST = process.env.NEXT_PUBLIC_POSTHOG_HOST || 'https://us.i.posthog.com';
 
-// Only initialize if we have a real key (not the placeholder)
-const isConfigured = !POSTHOG_API_KEY.includes('REPLACE');
+// Only initialize if a real project key is configured via env vars
+const isConfigured = POSTHOG_API_KEY.length > 0;
 
 if (typeof window !== 'undefined' && isConfigured) {
   posthog.init(POSTHOG_API_KEY, {
@@ -44,7 +44,7 @@ function PostHogPageView() {
 
   useEffect(() => {
     if (!isConfigured) return;
-    
+
     let url = window.origin + pathname;
     const search = searchParams.toString();
     if (search) url += '?' + search;
