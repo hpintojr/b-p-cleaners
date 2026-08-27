@@ -91,16 +91,16 @@ export default function BlogHubPage() {
             <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-af-blue-soft border border-af-blue-ice shadow-xs">
               <Flame className="w-3.5 h-3.5 text-af-red" />
               <span className="text-[11px] font-extrabold uppercase tracking-widest text-af-navy">
-                The Advantage Dispatch
+                The B&P Cleaning Journal
               </span>
             </div>
 
             <h1 className="font-display text-4xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight text-af-navy leading-[1.1]">
-              Financial Intelligence for Smart Borrowers
+              Cleaning Tips & Home Care Guides
             </h1>
 
             <p className="text-base sm:text-lg text-pv-muted leading-relaxed max-w-2xl mx-auto">
-              Strategic blueprints on loan consolidation, rate negotiation, credit optimization, and capital allocation from licensed lending professionals.
+              Practical cleaning checklists, maintenance schedules, and home & office care guides from our vetted cleaning professionals.
             </p>
 
             {/* Substack Publication Stats Pill */}
@@ -146,7 +146,7 @@ export default function BlogHubPage() {
                 type="text"
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
-                placeholder="Search dispatches..."
+                placeholder="Search articles..."
                 className="w-full pl-9 pr-7 py-1.5 rounded-full bg-af-blue-soft border border-af-blue-ice text-xs focus:outline-none focus:ring-2 focus:ring-af-blue focus:bg-white transition-all text-af-navy placeholder-pv-muted shadow-2xs"
               />
               {searchQuery && (
@@ -170,7 +170,7 @@ export default function BlogHubPage() {
         
         {/* Featured Story Spotlight (Shown when viewing "all" with no active search) */}
         {selectedCategory === 'all' && !searchQuery && featuredPost && (
-          <section className="mb-16 sm:mb-20" id="featured-dispatch">
+          <section className="mb-16 sm:mb-20" id="featured-article">
             <div className="flex items-center gap-2 mb-4">
               <span className="text-xs font-extrabold uppercase tracking-widest text-af-red flex items-center gap-1.5">
                 <Sparkles className="w-3.5 h-3.5" />
@@ -261,7 +261,7 @@ export default function BlogHubPage() {
                       onClick={() => analytics.blogArticleClick({ slug: featuredPost.slug, title: featuredPost.title, category: featuredPost.category })}
                       className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-af-navy hover:bg-af-blue text-white font-bold text-xs shadow-md transition-all duration-200 group-hover:translate-x-0.5"
                     >
-                      <span>Read Dispatch</span>
+                      <span>Read Article</span>
                       <ArrowRight className="w-3.5 h-3.5" />
                     </Link>
                   </div>
@@ -273,11 +273,11 @@ export default function BlogHubPage() {
           </section>
         )}
 
-        {/* Filtered Dispatches Header */}
+        {/* Filtered Articles Header */}
         <div className="flex items-center justify-between mb-8 pb-4 border-b border-af-blue-ice/60">
           <div>
             <h3 className="font-display text-2xl font-extrabold text-af-navy">
-              {selectedCategory === 'all' && !searchQuery ? 'Latest Dispatches' : `Articles (${filteredPosts.length})`}
+              {selectedCategory === 'all' && !searchQuery ? 'Latest Articles' : `Articles (${filteredPosts.length})`}
             </h3>
             {searchQuery && (
               <p className="text-xs text-pv-muted mt-1">
@@ -291,7 +291,7 @@ export default function BlogHubPage() {
         {filteredPosts.length === 0 && (
           <div className="text-center py-16 bg-white rounded-3xl border border-af-blue-ice p-8 space-y-4">
             <BookOpen className="w-12 h-12 text-pv-muted mx-auto" />
-            <h4 className="text-lg font-bold text-af-navy">No dispatches found</h4>
+            <h4 className="text-lg font-bold text-af-navy">No articles found</h4>
             <p className="text-xs text-pv-muted max-w-sm mx-auto">
               We couldn&apos;t find any articles matching your search criteria. Try selecting another category or clearing your query.
             </p>
@@ -370,7 +370,7 @@ export default function BlogHubPage() {
                         </div>
                       </div>
                       <span className="text-xs font-semibold text-af-navy truncate max-w-[140px]">
-                        Advantage First
+                        B&P Cleaners
                       </span>
                     </div>
 
@@ -399,13 +399,13 @@ export default function BlogHubPage() {
             <div className="lg:col-span-7 space-y-4">
               <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-white/10 border border-white/15 text-xs font-semibold text-af-blue-light">
                 <Mail className="w-3.5 h-3.5 text-af-red" />
-                <span>The Advantage Dispatch Newsletter</span>
+                <span>The B&P Cleaning Journal Newsletter</span>
               </div>
               <h3 className="font-display text-2xl sm:text-3xl lg:text-4xl font-extrabold tracking-tight">
-                Get Monthly Borrowing Intelligence &amp; Rate Analysis
+                Get Monthly Cleaning Tips &amp; Home Care Guides
               </h3>
               <p className="text-sm text-white/80 max-w-xl leading-relaxed">
-                Each month, our lending and financial analysts break down interest rate movements, credit card loop strategies, and practical wealth protection tips.
+                Each month, our cleaning team shares maintenance checklists, seasonal deep-clean guides, and practical tips for keeping your home or business spotless.
               </p>
             </div>
 
@@ -414,7 +414,7 @@ export default function BlogHubPage() {
                 <div className="bg-trust-green/20 border border-trust-green/40 rounded-2xl p-6 flex items-center gap-3 text-white">
                   <CheckCircle className="w-8 h-8 text-trust-green flex-shrink-0" />
                   <div>
-                    <strong className="block text-base font-bold">Welcome to The Dispatch!</strong>
+                    <strong className="block text-base font-bold">Welcome to The Journal!</strong>
                     <span className="text-xs text-white/80">Check your inbox for our latest market analysis and welcome guide.</span>
                   </div>
                 </div>
@@ -431,7 +431,7 @@ export default function BlogHubPage() {
                     />
                     <button
                       type="submit"
-                      className="px-8 py-4 rounded-full bg-gradient-to-r from-af-red to-[#E63935] hover:from-[#C02926] hover:to-af-red text-white font-bold text-sm shadow-lg shadow-af-red/30 transition-all duration-150 whitespace-nowrap active:scale-95 flex-shrink-0"
+                      className="px-8 py-4 rounded-full bg-gradient-to-r from-af-red to-[#10B981] hover:from-af-red-hover hover:to-af-red text-white font-bold text-sm shadow-lg shadow-af-red/30 transition-all duration-150 whitespace-nowrap active:scale-95 flex-shrink-0"
                     >
                       Subscribe
                     </button>
