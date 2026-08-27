@@ -1,7 +1,7 @@
 /**
  * GHL Contacts API Backend Adapter
  * Creates a contact via the GHL REST API using mapped field names.
- * 
+ *
  * Note: GHL Contacts API has a fixed schema for top-level fields
  * (firstName, lastName, email, phone, etc.) but custom fields use
  * the mapped names from backendcolumns.
@@ -21,14 +21,15 @@ export async function sendToGhlApi(lead: LeadData): Promise<BackendResult> {
 
   // Build custom fields array using mapped names (skip empty mappings)
   const customFields: { key: string; field_value: string }[] = [];
-  
+
   const customFieldEntries: [string, unknown][] = [
-    [cols.loanAmount, lead.loanAmount],
-    [cols.loanTerm, lead.loanTerm],
-    [cols.estimatedMonthlyPayment, lead.estimatedMonthlyPayment],
-    [cols.estimatedTotalCost, lead.estimatedTotalCost],
-    [cols.unsecuredTotal, lead.unsecuredTotal],
-    [cols.estimatedSavings, lead.estimatedSavings],
+    [cols.propertyType, lead.propertyType],
+    [cols.sqft, lead.sqft],
+    [cols.rooms, lead.rooms],
+    [cols.frequency, lead.frequency],
+    [cols.addons, lead.addons.join(', ')],
+    [cols.estimatedPriceMin, lead.estimatedPriceMin],
+    [cols.estimatedPriceMax, lead.estimatedPriceMax],
     [cols.smsConsent, lead.smsConsent ? 'Yes' : 'No'],
     [cols.quoteId, lead.quoteId],
     [cols.submittedAt, lead.submittedAt],
@@ -53,11 +54,10 @@ export async function sendToGhlApi(lead: LeadData): Promise<BackendResult> {
         lastName,
         email: lead.email,
         phone: lead.phone,
-        state: lead.state,
         source: lead.source,
         locationId: config.locationId,
         customFields,
-        tags: ['website-calculator', 'advantage-first'],
+        tags: ['website-calculator', 'bp-cleaners'],
       }),
     });
 
