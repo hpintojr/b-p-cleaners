@@ -1,26 +1,23 @@
 /**
- * ════════════════════════════════════════════════════════
- *  BACKEND COLUMNS — Per-Backend Field Name Mapping
- * ════════════════════════════════════════════════════════
- * 
+ * BACKEND COLUMNS — Per-Backend Field Name Mapping
+ *
  *  This file controls what each lead data field is CALLED when it
  *  gets sent to each backend. Every backend can use different names.
- * 
+ *
  *  EXAMPLE: Your Supabase table has a column called "fname" but
  *  GHL expects "first_name" and Salesforce expects "FirstName":
- * 
+ *
  *    supabase:    { fullName: 'fname', ... }
  *    ghlWebhook:  { fullName: 'first_name', ... }
  *    salesforce:  { fullName: 'FirstName', ... }
- * 
+ *
  *  HOW TO USE:
  *  1. Find the backend you want to customize below
  *  2. Change the VALUE (right side) to match your backend's field name
  *  3. The KEY (left side) always stays the same — it maps to the
  *     lead data from the calculator
- * 
+ *
  *  Set a field to '' (empty string) to exclude it from that backend.
- * ════════════════════════════════════════════════════════
  */
 
 export interface FieldMapping {
@@ -30,17 +27,17 @@ export interface FieldMapping {
   lastName: string;        // auto-split from fullName
   phone: string;
   email: string;
-  state: string;
 
   // Calculator values
-  loanAmount: string;
-  loanTerm: string;
+  propertyType: string;
+  sqft: string;
+  rooms: string;
+  frequency: string;
+  addons: string;
 
-  // Calculated estimates
-  estimatedMonthlyPayment: string;
-  estimatedTotalCost: string;
-  unsecuredTotal: string;
-  estimatedSavings: string;
+  // Calculated estimate
+  estimatedPriceMin: string;
+  estimatedPriceMax: string;
 
   // Consent & metadata
   smsConsent: string;
@@ -52,22 +49,20 @@ export interface FieldMapping {
 
 export const backendColumns: Record<string, FieldMapping> = {
 
-  // ──────────────────────────────────────────────────
-  //  SUPABASE — Column names in your Supabase 'leads' table
-  // ──────────────────────────────────────────────────
+  // SUPABASE — Column names in your Supabase 'leads' table
   supabase: {
     fullName:                 'full_name',
     firstName:                'first_name',
     lastName:                 'last_name',
     phone:                    'phone',
     email:                    'email',
-    state:                    'state',
-    loanAmount:               'loan_amount',
-    loanTerm:                 'loan_term',
-    estimatedMonthlyPayment:  'estimated_monthly_payment',
-    estimatedTotalCost:       'estimated_total_cost',
-    unsecuredTotal:           'unsecured_total',
-    estimatedSavings:         'estimated_savings',
+    propertyType:              'property_type',
+    sqft:                      'sqft_range',
+    rooms:                     'rooms',
+    frequency:                 'service_frequency',
+    addons:                    'add_ons',
+    estimatedPriceMin:         'estimated_price_min',
+    estimatedPriceMax:         'estimated_price_max',
     smsConsent:               'sms_consent',
     communicationsConsent:    'communications_consent',
     quoteId:                  'quote_id',
@@ -75,22 +70,20 @@ export const backendColumns: Record<string, FieldMapping> = {
     source:                   'source',
   },
 
-  // ──────────────────────────────────────────────────
-  //  GHL INBOUND WEBHOOK — Field names in the webhook payload
-  // ──────────────────────────────────────────────────
+  // GHL INBOUND WEBHOOK — Field names in the webhook payload
   ghlWebhook: {
     fullName:                 'full_name',
     firstName:                'first_name',
     lastName:                 'last_name',
     phone:                    'phone',
     email:                    'email',
-    state:                    'state',
-    loanAmount:               'loan_amount',
-    loanTerm:                 'loan_term',
-    estimatedMonthlyPayment:  'estimated_monthly_payment',
-    estimatedTotalCost:       'estimated_total_cost',
-    unsecuredTotal:           'unsecured_total',
-    estimatedSavings:         'estimated_savings',
+    propertyType:              'Property_Type',
+    sqft:                      'Estimated_SqFt',
+    rooms:                     'Number_of_Rooms',
+    frequency:                 'Maintenance_Frequency',
+    addons:                    'Requested_Add_Ons',
+    estimatedPriceMin:         'estimated_price_min',
+    estimatedPriceMax:         'estimated_price_max',
     smsConsent:               'sms_consent',
     communicationsConsent:    'communications_consent',
     quoteId:                  'quote_id',
@@ -98,22 +91,21 @@ export const backendColumns: Record<string, FieldMapping> = {
     source:                   'source',
   },
 
-  // ──────────────────────────────────────────────────
-  //  GHL CONTACTS API — Field names for contact creation
-  // ──────────────────────────────────────────────────
+  // GHL CONTACTS API — Field names for contact creation
+  // (matches the custom fields defined in the GHL project spec)
   ghlApi: {
     fullName:                 'full_name',
     firstName:                'firstName',
     lastName:                 'lastName',
     phone:                    'phone',
     email:                    'email',
-    state:                    'state',
-    loanAmount:               'loan_amount',
-    loanTerm:                 'loan_term',
-    estimatedMonthlyPayment:  'estimated_monthly_payment',
-    estimatedTotalCost:       'estimated_total_cost',
-    unsecuredTotal:           'unsecured_total',
-    estimatedSavings:         'estimated_savings',
+    propertyType:              'Property_Type',
+    sqft:                      'Estimated_SqFt',
+    rooms:                     'Number_of_Rooms',
+    frequency:                 'Maintenance_Frequency',
+    addons:                    'Requested_Add_Ons',
+    estimatedPriceMin:         'estimated_price_min',
+    estimatedPriceMax:         'estimated_price_max',
     smsConsent:               'sms_consent',
     communicationsConsent:    'communications_consent',
     quoteId:                  'quote_id',
@@ -121,22 +113,20 @@ export const backendColumns: Record<string, FieldMapping> = {
     source:                   'source',
   },
 
-  // ──────────────────────────────────────────────────
-  //  SALESFORCE — Field names for Lead object
-  // ──────────────────────────────────────────────────
+  // SALESFORCE — Field names for Lead object
   salesforce: {
     fullName:                 'Name',
     firstName:                'FirstName',
     lastName:                 'LastName',
     phone:                    'Phone',
     email:                    'Email',
-    state:                    'State',
-    loanAmount:               'Loan_Amount__c',
-    loanTerm:                 'Loan_Term__c',
-    estimatedMonthlyPayment:  'Est_Monthly_Payment__c',
-    estimatedTotalCost:       'Est_Total_Cost__c',
-    unsecuredTotal:           'Unsecured_Total__c',
-    estimatedSavings:         'Est_Savings__c',
+    propertyType:              'Property_Type__c',
+    sqft:                      'Sqft__c',
+    rooms:                     'Rooms__c',
+    frequency:                 'Service_Frequency__c',
+    addons:                    'Add_Ons__c',
+    estimatedPriceMin:         'Est_Price_Min__c',
+    estimatedPriceMax:         'Est_Price_Max__c',
     smsConsent:               'SMS_Consent__c',
     communicationsConsent:    'Comms_Consent__c',
     quoteId:                  'Quote_ID__c',
@@ -166,13 +156,13 @@ export function mapLeadToBackend(lead: LeadData, backendKey: string): Record<str
     lastName:                 lastName,
     phone:                    lead.phone,
     email:                    lead.email,
-    state:                    lead.state,
-    loanAmount:               lead.loanAmount,
-    loanTerm:                 lead.loanTerm,
-    estimatedMonthlyPayment:  lead.estimatedMonthlyPayment,
-    estimatedTotalCost:       lead.estimatedTotalCost,
-    unsecuredTotal:           lead.unsecuredTotal,
-    estimatedSavings:         lead.estimatedSavings,
+    propertyType:              lead.propertyType,
+    sqft:                      lead.sqft,
+    rooms:                     lead.rooms,
+    frequency:                 lead.frequency,
+    addons:                    lead.addons,
+    estimatedPriceMin:         lead.estimatedPriceMin,
+    estimatedPriceMax:         lead.estimatedPriceMax,
     smsConsent:               lead.smsConsent,
     communicationsConsent:    lead.communicationsConsent,
     quoteId:                  lead.quoteId,
@@ -185,7 +175,7 @@ export function mapLeadToBackend(lead: LeadData, backendKey: string): Record<str
   for (const [internalKey, externalName] of Object.entries(mapping)) {
     // Skip fields with empty mapping — user doesn't want them sent
     if (!externalName || externalName.trim() === '') continue;
-    
+
     if (internalKey in fieldValues) {
       result[externalName] = fieldValues[internalKey];
     }
