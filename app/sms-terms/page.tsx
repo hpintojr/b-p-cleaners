@@ -19,7 +19,7 @@ export default function SmsTermsPage() {
           </div>
           <div>
             <h1 className="text-2xl sm:text-3xl font-extrabold text-af-navy tracking-tight">SMS Terms &amp; Conditions</h1>
-            <p className="text-xs text-pv-muted font-medium mt-0.5">Advantage First Financial, LLC</p>
+            <p className="text-xs text-pv-muted font-medium mt-0.5">Benny &amp; Penny Cleaning Services, LLC</p>
           </div>
         </div>
 
@@ -30,13 +30,13 @@ export default function SmsTermsPage() {
           <section className="space-y-3">
             <h2 className="text-lg font-extrabold text-af-navy">1. Program Description</h2>
             <p>
-              When you opt in to SMS communications from Advantage First Financial, LLC (&quot;we,&quot; &quot;us,&quot; or &quot;our&quot;), you consent to receive recurring text messages at the mobile phone number you provided. These messages may include:
+              When you opt in to SMS communications from B&amp;P Cleaners (&quot;we,&quot; &quot;us,&quot; or &quot;our&quot;), you consent to receive recurring text messages at the mobile phone number you provided. These messages may include:
             </p>
             <ul className="list-disc pl-5 space-y-1">
-              <li>Loan inquiry status updates and application notifications</li>
-              <li>Promotional offers for personal loans, consolidation loans, and related financial products</li>
-              <li>Payment reminders and account-related alerts</li>
-              <li>Informational content related to your financial goals</li>
+              <li>Quote and booking confirmations</li>
+              <li>Appointment reminders and scheduling updates</li>
+              <li>Service-related alerts, such as cleaner arrival windows</li>
+              <li>Informational content related to your cleaning service</li>
             </ul>
             <p>
               Messages may be sent using an automatic telephone dialing system (autodialer) or conversational messaging technology.
@@ -46,14 +46,14 @@ export default function SmsTermsPage() {
           <section className="space-y-3">
             <h2 className="text-lg font-extrabold text-af-navy">2. Message Frequency</h2>
             <p>
-              You may receive <strong className="text-af-navy">up to 10 messages per month</strong>. Actual message frequency will vary based on your interactions and the status of your loan inquiry.
+              Message frequency <strong className="text-af-navy">varies based on your service activity</strong> — for example, quote follow-ups, appointment reminders, and recurring service notifications.
             </p>
           </section>
 
           <section className="space-y-3">
             <h2 className="text-lg font-extrabold text-af-navy">3. Message &amp; Data Rates</h2>
             <p>
-              Message and data rates may apply depending on your mobile carrier and wireless plan. Advantage First Financial is not responsible for any charges incurred from your carrier for sending or receiving text messages.
+              Message and data rates may apply depending on your mobile carrier and wireless plan. B&amp;P Cleaners is not responsible for any charges incurred from your carrier for sending or receiving text messages.
             </p>
           </section>
 
@@ -70,17 +70,17 @@ export default function SmsTermsPage() {
               For help with our SMS program, text <strong className="text-af-navy font-mono bg-af-blue-soft px-1.5 py-0.5 rounded">HELP</strong> to any message, or contact us directly:
             </p>
             <div className="p-4 rounded-xl bg-white border border-af-blue-ice space-y-1 text-xs">
-              <p className="font-bold text-af-navy">Advantage First Financial, LLC</p>
-              <p>3187 Red Hill Ave Suite 230, Costa Mesa, CA 92626</p>
-              <p>Email: <a href="mailto:info@advantagefirst.com" className="text-af-blue underline">info@advantagefirst.com</a></p>
-              <p>Phone: <a href="tel:18003441202" className="text-af-blue underline">(800) 344-1202</a></p>
+              <p className="font-bold text-af-navy">Benny &amp; Penny Cleaning Services, LLC</p>
+              <p>231 E Alessandro Blvd. Suite A-208, Riverside, CA 92508</p>
+              <p>Email: <a href="mailto:hello@bpcleaners.com" className="text-af-blue underline">hello@bpcleaners.com</a></p>
+              <p>Phone: <a href="tel:19092767631" className="text-af-blue underline">(909) 276-7631</a></p>
             </div>
           </section>
 
           <section className="space-y-3">
             <h2 className="text-lg font-extrabold text-af-navy">6. Consent Not Required</h2>
             <p>
-              Consent to receive SMS messages is <strong className="text-af-navy">not a condition</strong> of purchasing any product, applying for any loan, or receiving any financial service from Advantage First Financial, LLC.
+              Consent to receive SMS messages is <strong className="text-af-navy">not a condition</strong> of booking or receiving any cleaning service from B&amp;P Cleaners.
             </p>
           </section>
 
@@ -93,14 +93,14 @@ export default function SmsTermsPage() {
               AT&amp;T · Verizon · T-Mobile · Sprint · U.S. Cellular · Boost Mobile · MetroPCS · Cricket Wireless · Virgin Mobile · Google Fi · Mint Mobile · Visible
             </p>
             <p>
-              Carriers are not liable for delayed or undelivered messages. T-Mobile is not liable for delayed or undelivered messages.
+              Carriers are not liable for delayed or undelivered messages.
             </p>
           </section>
 
           <section className="space-y-3">
             <h2 className="text-lg font-extrabold text-af-navy">8. No Data Sharing for SMS</h2>
             <p>
-              We do not sell, rent, loan, trade, lease, or otherwise transfer for profit any phone numbers or personal information collected through our SMS program to any third party for their marketing purposes. Your information is used solely to facilitate your loan inquiry and related Advantage First Financial communications.
+              We do not sell, rent, loan, trade, lease, or otherwise transfer for profit any phone numbers or personal information collected through our SMS program to any third party for their marketing purposes. Your information is used solely to facilitate your service request and related B&amp;P Cleaners communications.
             </p>
           </section>
 
@@ -115,7 +115,7 @@ export default function SmsTermsPage() {
           <div className="mt-10 p-5 rounded-2xl bg-af-blue-soft/80 border border-af-blue-ice flex items-start gap-3">
             <Shield className="w-5 h-5 text-trust-green flex-shrink-0 mt-0.5" />
             <p className="text-xs text-pv-muted leading-relaxed">
-              <strong className="text-af-navy">Your Privacy Matters:</strong> Advantage First Financial, LLC is committed to responsible communication. We will never spam your phone, and you can opt out at any time with a single text. Our SMS practices comply with the Telephone Consumer Protection Act (TCPA) and applicable FCC regulations.
+              <strong className="text-af-navy">Your Privacy Matters:</strong> B&amp;P Cleaners is committed to responsible communication. We will never spam your phone, and you can opt out at any time with a single text. Our SMS practices comply with the Telephone Consumer Protection Act (TCPA) and applicable FCC regulations.
             </p>
           </div>
 

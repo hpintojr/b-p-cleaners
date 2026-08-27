@@ -6,8 +6,8 @@ import { ShieldCheck, ArrowLeft, Lock, FileText, CheckCircle2 } from 'lucide-rea
 import type { Metadata } from 'next';
 
 export const metadata: Metadata = {
-  title: 'Privacy Policy | Advantage First Financial',
-  description: 'Advantage First Financial LLC privacy policy, financial data confidentiality, California CCPA rights, and SMS disclosure notice.',
+  title: 'Privacy Policy | B&P Cleaners',
+  description: 'Benny & Penny Cleaning Services, LLC privacy policy, data handling practices, California CCPA rights, and SMS disclosure notice.',
 };
 
 export default function PrivacyPage() {
@@ -34,16 +34,16 @@ export default function PrivacyPage() {
             <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-trust-green-light border border-trust-green/20 mb-4 shadow-2xs">
               <Lock className="w-3.5 h-3.5 text-trust-green" />
               <span className="text-[11px] font-extrabold uppercase tracking-widest text-trust-green">
-                Financial Privacy &amp; Data Security
+                Privacy &amp; Data Security
               </span>
             </div>
             
             <h1 className="font-display text-3xl sm:text-4xl lg:text-5xl font-extrabold text-af-navy tracking-tight leading-tight">
-              Privacy Policy Disclosure
+              Privacy Policy
             </h1>
             
             <p className="text-xs sm:text-sm text-pv-muted mt-3 font-semibold">
-              Advantage First Financial, LLC · Effective Date: April 2026
+              Benny &amp; Penny Cleaning Services, LLC · Effective Date: August 2026
             </p>
           </div>
 
@@ -51,21 +51,21 @@ export default function PrivacyPage() {
           <div className="p-8 sm:p-12 rounded-3xl bg-white border border-af-blue-ice shadow-sm space-y-10 text-sm text-pv-muted leading-relaxed" id="privacy-content">
             
             <section className="space-y-3">
-              <h2 className="text-xl font-extrabold text-af-navy">1. Your Financial Privacy Matters</h2>
+              <h2 className="text-xl font-extrabold text-af-navy">1. Your Privacy Matters</h2>
               <p>
-                At Advantage First Financial, LLC (“Advantage First,” “AFF,” “we,” “us,” or “our”), we value your financial privacy. This policy explains how AFF, our subsidiaries, and affiliates handle your personal information, both online and offline. We are committed to protecting your confidentiality and the security of your personal and financial data in full compliance with federal and state privacy statutes, including the Gramm-Leach-Bliley Act (GLBA) and the California Consumer Privacy Act (CCPA).
+                At Benny &amp; Penny Cleaning Services, LLC (&quot;B&amp;P Cleaners,&quot; &quot;we,&quot; &quot;us,&quot; or &quot;our&quot;), we respect your privacy. This policy explains how we collect, use, and protect the personal information you share with us when you request a quote, book a cleaning, or otherwise interact with our website, in compliance with applicable state and federal privacy laws, including the California Consumer Privacy Act (CCPA).
               </p>
             </section>
 
             <section className="space-y-3">
               <h2 className="text-xl font-extrabold text-af-navy">2. Information We Collect</h2>
               <p>
-                When you complete an inquiry or pre-qualification form on our website, we collect your name, residential address, email address, phone number, state of residence, requested loan amount, estimated credit tier, IP address, device interactions, and referral source.
+                When you request an instant quote or book service on our website, we collect your name, service address, email address, phone number, property type, square footage, room count, service frequency, selected add-ons, and general device/usage information.
               </p>
               <ul className="list-disc pl-5 space-y-2">
-                <li><strong>Online Submissions:</strong> Information provided during pre-qualification inquiries, including employment details, income estimates, debt amounts, and financial objectives.</li>
-                <li><strong>Credit Reporting Agencies:</strong> Information obtained from consumer reporting agencies (such as Experian, TransUnion, and Equifax) with your explicit authorization for pre-screening and credit evaluation.</li>
-                <li><strong>Offline Interactions:</strong> Records of telephone consultations, customer support interactions, and correspondence with our lending specialists.</li>
+                <li><strong>Quote &amp; Booking Submissions:</strong> Property and service details you provide to generate an instant price estimate and schedule an appointment.</li>
+                <li><strong>Communications:</strong> Records of phone calls, text messages, emails, and other correspondence related to your service request.</li>
+                <li><strong>Website Usage:</strong> Standard analytics data such as IP address, browser type, and pages visited, used to improve our website and quote experience.</li>
               </ul>
             </section>
 
@@ -75,29 +75,29 @@ export default function PrivacyPage() {
                 We use collected information to:
               </p>
               <ul className="list-disc pl-5 space-y-1.5">
-                <li>Evaluate your eligibility for direct loan offers and partner lender options.</li>
-                <li>Process applications and deliver pre-qualification estimates.</li>
-                <li>Verify your identity and prevent financial fraud.</li>
-                <li>Communicate with you regarding your application status, customer inquiries, and requested loan consultations.</li>
-                <li>Improve our website performance, user experience, and underwriting technology.</li>
+                <li>Generate accurate quote estimates and confirm final pricing before your appointment.</li>
+                <li>Schedule, dispatch, and coordinate cleaning service with vetted independent contractors.</li>
+                <li>Communicate with you about your appointment, confirmations, and service updates.</li>
+                <li>Respond to customer support requests.</li>
+                <li>Improve our website, quote calculator, and overall service experience.</li>
               </ul>
             </section>
 
             <section className="space-y-3">
               <h2 className="text-xl font-extrabold text-af-navy">4. We Do Not Sell Your Personal Information</h2>
               <p>
-                <strong>Advantage First Financial does not sell your personal information.</strong> We share consumer information only with authorized service providers assisting in loan origination, communications delivery (such as SMS and email platforms), hosting, compliance auditing, or when required by court order or regulatory authority.
+                <strong>B&amp;P Cleaners does not sell your personal information.</strong> We share information only with service providers who help us deliver your cleaning service &mdash; such as scheduling, payment processing, and communications platforms &mdash; or when required by law.
               </p>
             </section>
 
             <section className="space-y-3">
               <h2 className="text-xl font-extrabold text-af-navy">5. SMS / Text Messaging Terms &amp; Conditions</h2>
               <p>
-                By opting in to receive SMS messages from Advantage First Financial, LLC, you consent to receive text messages regarding your inquiry, application status, and loan notifications at the mobile number you provided. Message and data rates may apply. Message frequency varies based on your application activity.
+                By opting in to receive SMS messages from B&amp;P Cleaners, you consent to receive text messages regarding your quote, appointment confirmations, and service updates at the mobile number you provided. Message and data rates may apply. Message frequency varies based on your service activity.
               </p>
               <div className="p-4 rounded-2xl bg-af-blue-soft/60 border border-af-blue-ice space-y-2 text-xs">
                 <p><strong>Opt-Out:</strong> You may opt out of SMS communications at any time by texting <strong>STOP</strong> to any message. You will receive a one-time confirmation text. To re-subscribe, text <strong>START</strong>.</p>
-                <p><strong>Support:</strong> For help, text <strong>HELP</strong> or email <a href="mailto:info@advantagefirst.com" className="text-af-blue underline">info@advantagefirst.com</a> or call <a href="tel:18003441202" className="text-af-blue underline">(800) 344-1202</a>.</p>
+                <p><strong>Support:</strong> For help, text <strong>HELP</strong> or email <a href="mailto:hello@bpcleaners.com" className="text-af-blue underline">hello@bpcleaners.com</a> or call <a href="tel:19092767631" className="text-af-blue underline">(909) 276-7631</a>.</p>
                 <p><strong>Privacy of Mobile Numbers:</strong> Text messaging originator opt-in data and consent will not be shared with or sold to any third parties for their own marketing purposes.</p>
               </div>
             </section>
@@ -105,29 +105,28 @@ export default function PrivacyPage() {
             <section className="space-y-3">
               <h2 className="text-xl font-extrabold text-af-navy">6. Your California Privacy Rights (CCPA)</h2>
               <p>
-                California residents have specific privacy rights regarding personal information under the California Consumer Privacy Act (CCPA) to the extent data is not governed by the Gramm-Leach-Bliley Act (GLBA):
+                California residents have specific privacy rights regarding personal information under the California Consumer Privacy Act (CCPA):
               </p>
               <ul className="list-disc pl-5 space-y-1.5">
                 <li><strong>Right to Know:</strong> You may request the categories and specific pieces of personal information collected about you.</li>
-                <li><strong>Right to Delete:</strong> You may request deletion of your personal data, subject to legal and regulatory retention obligations.</li>
+                <li><strong>Right to Delete:</strong> You may request deletion of your personal data, subject to legal and record-keeping obligations.</li>
                 <li><strong>Right to Non-Discrimination:</strong> We will not discriminate against you for exercising your privacy rights.</li>
               </ul>
               <p className="pt-2">
-                To submit a CCPA privacy request, email <a href="mailto:info@advantagefirst.com" className="text-af-blue underline">info@advantagefirst.com</a> or call toll-free at <a href="tel:18003441202" className="text-af-blue underline">(800) 344-1202</a>.
+                To submit a CCPA privacy request, email <a href="mailto:hello@bpcleaners.com" className="text-af-blue underline">hello@bpcleaners.com</a> or call <a href="tel:19092767631" className="text-af-blue underline">(909) 276-7631</a>.
               </p>
             </section>
 
             <section className="space-y-3">
               <h2 className="text-xl font-extrabold text-af-navy">7. Contact Information</h2>
               <p>
-                If you have questions regarding this Privacy Policy, please contact our Compliance Department:
+                If you have questions regarding this Privacy Policy, please contact us:
               </p>
               <div className="p-4 rounded-xl bg-white border border-af-blue-ice space-y-1 text-xs">
-                <p className="font-bold text-af-navy">Advantage First Financial, LLC</p>
-                <p>3187 Red Hill Ave Suite 230, Costa Mesa, CA 92626</p>
-                <p>Email: <a href="mailto:info@advantagefirst.com" className="text-af-blue underline">info@advantagefirst.com</a></p>
-                <p>Phone: (714) 351-7616 · Toll-Free: (800) 344-1202</p>
-                <p>NMLS Unique Identifier: #2674295</p>
+                <p className="font-bold text-af-navy">Benny &amp; Penny Cleaning Services, LLC</p>
+                <p>231 E Alessandro Blvd. Suite A-208, Riverside, CA 92508</p>
+                <p>Email: <a href="mailto:hello@bpcleaners.com" className="text-af-blue underline">hello@bpcleaners.com</a></p>
+                <p>Phone: (909) 276-7631</p>
               </div>
             </section>
 

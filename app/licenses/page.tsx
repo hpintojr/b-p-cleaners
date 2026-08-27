@@ -8,39 +8,6 @@ import { ShieldCheck, ExternalLink, Award, Building2, MapPin, Phone, Mail, Check
 import { analytics } from '@/lib/analytics';
 
 export default function LicensesPage() {
-  const licenses = [
-    {
-      state: 'Texas',
-      regulator: 'Texas - Office of Consumer Credit Commissioner (OCCC)',
-      licenseName: 'Regulated Lender Company License',
-      licenseNumber: '173702',
-      authorized: true,
-      originalIssueDate: '01/06/2026',
-      status: 'Approved',
-      statusDate: '01/06/2026',
-      renewedThrough: '2026',
-      otherTradeNames: 'None',
-      agencyAddress: '2601 N Lamar Blvd, Austin, TX 78705',
-      complaintUrl: 'https://occc.texas.gov/consumers',
-      notes: 'Advantage First Financial LLC is licensed and examined under the Texas Finance Code. Regulated lenders are subject to strict statutory rate caps and disclosure requirements.',
-    },
-    {
-      state: 'Utah',
-      regulator: 'Utah Department of Financial Institutions (Utah-DFI)',
-      licenseName: 'Consumer Credit Notification',
-      licenseNumber: 'Notification on File',
-      authorized: true,
-      originalIssueDate: '01/01/2024',
-      status: 'Approved',
-      statusDate: '12/17/2024',
-      renewedThrough: '2026',
-      otherTradeNames: 'None',
-      agencyAddress: '324 S State St, Suite 201, Salt Lake City, UT 84111',
-      complaintUrl: 'https://dfi.utah.gov/',
-      notes: 'Authorized under the Utah Consumer Credit Code. Operates in full compliance with Utah DFI statutory regulations governing consumer credit transactions.',
-    },
-  ];
-
   return (
     <div className="min-h-screen flex flex-col justify-between bg-pv-bg" id="licenses-page-wrapper">
       <Navbar />
@@ -65,32 +32,17 @@ export default function LicensesPage() {
             <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-trust-green-light border border-trust-green/20 mb-4 shadow-2xs">
               <ShieldCheck className="w-4 h-4 text-trust-green" />
               <span className="text-xs font-extrabold uppercase tracking-widest text-trust-green">
-                NMLS Consumer Access Verified
+                Insured &amp; Vetted Cleaners
               </span>
             </div>
             
             <h1 className="font-display text-3xl sm:text-4xl lg:text-5xl font-extrabold text-af-navy tracking-tight leading-tight">
-              State Licensing &amp; Regulatory Disclosures
+              Business Information &amp; Disclosures
             </h1>
             
             <p className="text-base sm:text-lg text-pv-muted mt-4 leading-relaxed">
-              Advantage First Financial, LLC maintains direct lending licenses and regulatory approvals in accordance with federal and state consumer credit laws. Verify our official credentials on the Nationwide Multistate Licensing System (NMLS).
+              Benny &amp; Penny Cleaning Services, LLC connects customers with independent, insured cleaning contractors for residential and commercial cleaning. Here&apos;s how we operate and what you can expect.
             </p>
-
-            {/* Official NMLS Verification Link Callout */}
-            <div className="mt-6 inline-flex flex-wrap items-center justify-center gap-3">
-              <a
-                href="https://www.nmlsconsumeraccess.org/EntityDetails.aspx/COMPANY/2674295"
-                target="_blank"
-                rel="noopener noreferrer"
-                onClick={() => analytics.trustbarNmlsClick()}
-                className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-af-navy hover:bg-af-blue text-white text-xs sm:text-sm font-bold tracking-wide transition-all shadow-sm hover:shadow-md active:scale-98"
-                id="nmls-verification-btn"
-              >
-                <span>Verify NMLS ID #2674295 on NMLS Consumer Access</span>
-                <ExternalLink className="w-3.5 h-3.5 text-af-blue-light" />
-              </a>
-            </div>
           </div>
 
           {/* Entity Summary Bento Grid */}
@@ -102,16 +54,16 @@ export default function LicensesPage() {
                 </div>
                 <div>
                   <h2 className="text-xl font-extrabold text-af-navy">
-                    Advantage First Financial LLC
+                    Benny &amp; Penny Cleaning Services, LLC
                   </h2>
                   <span className="text-xs font-bold text-pv-muted">
-                    Nationwide Multistate Licensing System (NMLS) Unique Identifier: <strong className="text-af-blue font-mono">2674295</strong>
+                    Residential &amp; Commercial Cleaning Services
                   </span>
                 </div>
               </div>
               <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-trust-green-light text-trust-green text-xs font-extrabold border border-trust-green/20">
                 <CheckCircle2 className="w-3.5 h-3.5" />
-                Authorized / Good Standing
+                Insured &amp; Bonded
               </span>
             </div>
 
@@ -123,20 +75,17 @@ export default function LicensesPage() {
                 <span className="font-bold text-af-navy block">
                   Limited Liability Company (LLC)
                 </span>
-                <span className="text-pv-muted text-xs block">
-                  Formed in Wyoming, USA · Formed 12/16/2021
-                </span>
               </div>
 
               <div className="space-y-1 p-3.5 rounded-xl bg-af-blue-soft/40 border border-af-blue-ice/40">
                 <span className="text-pv-muted font-semibold block text-[11px] uppercase tracking-wider">
-                  Principal Executive Office
+                  Principal Office
                 </span>
                 <span className="font-bold text-af-navy block">
-                  3187 Red Hill Ave Suite 230
+                  231 E Alessandro Blvd. Suite A-208
                 </span>
                 <span className="text-pv-muted text-xs block">
-                  Costa Mesa, CA 92626
+                  Riverside, CA 92508
                 </span>
               </div>
 
@@ -145,10 +94,28 @@ export default function LicensesPage() {
                   Contact &amp; Communications
                 </span>
                 <span className="font-bold text-af-navy block">
-                  (714) 351-7616 · Toll-Free: (800) 344-1202
+                  (909) 276-7631
                 </span>
                 <span className="text-pv-muted text-xs block">
-                  info@advantagefirst.com
+                  hello@bpcleaners.com
+                </span>
+              </div>
+
+              <div className="space-y-1 p-3.5 rounded-xl bg-af-blue-soft/40 border border-af-blue-ice/40">
+                <span className="text-pv-muted font-semibold block text-[11px] uppercase tracking-wider">
+                  Workforce Model
+                </span>
+                <span className="font-bold text-af-navy block">
+                  Vetted 1099 Independent Contractors
+                </span>
+              </div>
+
+              <div className="space-y-1 p-3.5 rounded-xl bg-af-blue-soft/40 border border-af-blue-ice/40">
+                <span className="text-pv-muted font-semibold block text-[11px] uppercase tracking-wider">
+                  Service Areas
+                </span>
+                <span className="font-bold text-af-navy block">
+                  Residential &amp; Commercial Properties
                 </span>
               </div>
 
@@ -157,164 +124,74 @@ export default function LicensesPage() {
                   Other Trade Names / DBAs
                 </span>
                 <span className="font-bold text-af-navy block">
-                  None (Operates exclusively as Advantage First Financial LLC)
-                </span>
-              </div>
-
-              <div className="space-y-1 p-3.5 rounded-xl bg-af-blue-soft/40 border border-af-blue-ice/40">
-                <span className="text-pv-muted font-semibold block text-[11px] uppercase tracking-wider">
-                  NMLS Regulatory Actions
-                </span>
-                <span className="font-bold text-trust-green block flex items-center gap-1">
-                  <CheckCircle2 className="w-3.5 h-3.5" />
-                  Regulatory history available on NMLS Consumer Access
-                </span>
-              </div>
-
-              <div className="space-y-1 p-3.5 rounded-xl bg-af-blue-soft/40 border border-af-blue-ice/40">
-                <span className="text-pv-muted font-semibold block text-[11px] uppercase tracking-wider">
-                  Fiscal Year End
-                </span>
-                <span className="font-bold text-af-navy block">
-                  December 31
+                  None
                 </span>
               </div>
             </div>
           </div>
 
-          {/* Active State Licenses Section */}
-          <div className="space-y-8 mb-14" id="state-licenses-breakdown">
-            <div className="flex items-center justify-between">
-              <div>
-                <h2 className="text-2xl font-extrabold text-af-navy tracking-tight">
-                  State Licenses &amp; Registrations
-                </h2>
-                <p className="text-xs sm:text-sm text-pv-muted mt-1">
-                  Displaying 2 Active of 2 Total State Authorizations registered in NMLS
+          {/* Insurance & Bonding Section */}
+          <div className="space-y-8 mb-14" id="insurance-bonding">
+            <div>
+              <h2 className="text-2xl font-extrabold text-af-navy tracking-tight">
+                Insurance &amp; Vetting
+              </h2>
+              <p className="text-xs sm:text-sm text-pv-muted mt-1">
+                What we require before a cleaner is dispatched to your property.
+              </p>
+            </div>
+
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+              <div className="rounded-2xl bg-white border border-af-blue-ice shadow-sm p-6 space-y-2">
+                <ShieldCheck className="w-6 h-6 text-trust-green" />
+                <h3 className="font-extrabold text-af-navy text-sm">Insured &amp; Bonded</h3>
+                <p className="text-xs text-pv-muted leading-relaxed">
+                  Cleaning contractors dispatched through B&amp;P Cleaners carry insurance coverage appropriate to residential and commercial cleaning work.
                 </p>
               </div>
-              <span className="text-xs font-mono font-bold text-af-blue bg-af-blue-ice px-3 py-1.5 rounded-full border border-af-blue/20">
-                2 / 2 Active
-              </span>
-            </div>
-
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-              {licenses.map((lic) => (
-                <div 
-                  key={lic.state}
-                  className="rounded-3xl bg-white border border-af-blue-ice shadow-sm p-6 sm:p-8 flex flex-col justify-between hover:shadow-md transition-shadow relative overflow-hidden"
-                >
-                  <div className="space-y-5">
-                    {/* State Header */}
-                    <div className="flex items-center justify-between">
-                      <div className="flex items-center gap-2.5">
-                        <div className="w-10 h-10 rounded-xl bg-af-navy text-white flex items-center justify-center font-bold text-base shadow-xs">
-                          {lic.state.substring(0, 2).toUpperCase()}
-                        </div>
-                        <div>
-                          <h3 className="text-xl font-extrabold text-af-navy">
-                            {lic.state}
-                          </h3>
-                          <span className="text-xs font-semibold text-af-blue">
-                            {lic.licenseName}
-                          </span>
-                        </div>
-                      </div>
-                      <span className="inline-flex items-center gap-1 px-2.5 py-1 rounded-full bg-trust-green-light text-trust-green text-xs font-bold border border-trust-green/20">
-                        <CheckCircle2 className="w-3.5 h-3.5" />
-                        {lic.status}
-                      </span>
-                    </div>
-
-                    {/* License Metadata Table */}
-                    <div className="space-y-2.5 text-xs pt-4 border-t border-af-blue-ice/60">
-                      <div className="flex justify-between py-1 border-b border-af-blue-ice/30">
-                        <span className="text-pv-muted font-medium">License / Registration #:</span>
-                        <span className="font-mono font-bold text-af-navy">{lic.licenseNumber}</span>
-                      </div>
-                      <div className="flex justify-between py-1 border-b border-af-blue-ice/30">
-                        <span className="text-pv-muted font-medium">Regulating Agency:</span>
-                        <span className="font-semibold text-af-navy text-right max-w-[220px]">{lic.regulator}</span>
-                      </div>
-                      <div className="flex justify-between py-1 border-b border-af-blue-ice/30">
-                        <span className="text-pv-muted font-medium">Authorized to Conduct Business:</span>
-                        <span className="font-bold text-trust-green">Yes</span>
-                      </div>
-                      <div className="flex justify-between py-1 border-b border-af-blue-ice/30">
-                        <span className="text-pv-muted font-medium">Original Issue Date:</span>
-                        <span className="font-mono font-bold text-af-navy">{lic.originalIssueDate}</span>
-                      </div>
-                      <div className="flex justify-between py-1 border-b border-af-blue-ice/30">
-                        <span className="text-pv-muted font-medium">Status Date:</span>
-                        <span className="font-mono font-bold text-af-navy">{lic.statusDate}</span>
-                      </div>
-                      <div className="flex justify-between py-1">
-                        <span className="text-pv-muted font-medium">Renewed Through:</span>
-                        <span className="font-mono font-bold text-af-navy">{lic.renewedThrough}</span>
-                      </div>
-                    </div>
-
-                    {/* Statutory Note */}
-                    <div className="p-3.5 rounded-xl bg-af-blue-soft/50 border border-af-blue-ice/50 text-[11px] text-pv-muted leading-relaxed">
-                      {lic.notes}
-                    </div>
-                  </div>
-
-                  {/* Regulator Link */}
-                  <div className="mt-6 pt-4 border-t border-af-blue-ice/60 flex items-center justify-between text-xs font-bold text-af-blue">
-                    <span>Regulatory Agency</span>
-                    <a 
-                      href={lic.complaintUrl} 
-                      target="_blank" 
-                      rel="noopener noreferrer" 
-                      onClick={() => analytics.footerLinkClick(`regulator_${lic.state}`)}
-                      className="inline-flex items-center gap-1 hover:text-af-navy underline underline-offset-2"
-                    >
-                      <span>Visit Agency Website</span>
-                      <ExternalLink className="w-3 h-3" />
-                    </a>
-                  </div>
-                </div>
-              ))}
+              <div className="rounded-2xl bg-white border border-af-blue-ice shadow-sm p-6 space-y-2">
+                <CheckCircle2 className="w-6 h-6 text-trust-green" />
+                <h3 className="font-extrabold text-af-navy text-sm">Background-Checked</h3>
+                <p className="text-xs text-pv-muted leading-relaxed">
+                  Every independent contractor in our network completes a background screening before joining the platform.
+                </p>
+              </div>
+              <div className="rounded-2xl bg-white border border-af-blue-ice shadow-sm p-6 space-y-2">
+                <FileCheck className="w-6 h-6 text-trust-green" />
+                <h3 className="font-extrabold text-af-navy text-sm">Certificate on Request</h3>
+                <p className="text-xs text-pv-muted leading-relaxed">
+                  Commercial customers may request a certificate of insurance ahead of their scheduled service by contacting our team.
+                </p>
+              </div>
             </div>
           </div>
 
-          {/* Statutory State Disclosures Box */}
+          {/* Disclosures Box */}
           <div className="p-6 sm:p-8 rounded-3xl bg-white border border-af-blue-ice space-y-6 text-xs text-pv-muted leading-relaxed mb-12" id="statutory-notices">
             <h3 className="text-sm font-extrabold text-af-navy uppercase tracking-wider flex items-center gap-2">
               <Scale className="w-4 h-4 text-af-blue" />
-              <span>Required Consumer &amp; Regulatory Disclosures</span>
+              <span>Customer Disclosures</span>
             </h3>
 
             <div className="space-y-4">
               <div>
-                <strong className="text-af-navy block mb-1">Texas Consumer Notice (Office of Consumer Credit Commissioner):</strong>
+                <strong className="text-af-navy block mb-1">Independent Contractor Notice:</strong>
                 <p>
-                  Advantage First Financial LLC is licensed under the laws of the State of Texas and by state law is subject to regulatory oversight by the Office of Consumer Credit Commissioner (OCCC). Any consumer wishing to file a complaint against Advantage First Financial LLC should contact the OCCC Consumer Helpline at (800) 538-1579, visit <a href="https://occc.texas.gov" target="_blank" rel="noopener noreferrer" className="text-af-blue underline">occc.texas.gov</a>, or write to 2601 N. Lamar Blvd., Austin, TX 78705.
+                  Benny &amp; Penny Cleaning Services, LLC connects customers with independent, insured cleaning contractors. Cleanings are performed by vetted 1099 independent contractors, not employees of Benny &amp; Penny Cleaning Services, LLC.
                 </p>
               </div>
 
               <div>
-                <strong className="text-af-navy block mb-1">Utah Department of Financial Institutions Notice:</strong>
+                <strong className="text-af-navy block mb-1">Pricing &amp; Estimates Notice:</strong>
                 <p>
-                  Advantage First Financial LLC has filed the required Consumer Credit Notification with the Utah Department of Financial Institutions pursuant to the Utah Consumer Credit Code.
+                  Instant quotes shown on this site are estimates based on property type, square footage, room count, service frequency, and selected add-ons. Final pricing is confirmed prior to your scheduled appointment and may be adjusted after an in-person walkthrough for unusual conditions.
                 </p>
               </div>
 
               <div>
-                <strong className="text-af-navy block mb-1">Equal Credit Opportunity Act (ECOA) Notice:</strong>
+                <strong className="text-af-navy block mb-1">State &amp; Local Licensing:</strong>
                 <p>
-                  The Federal Equal Credit Opportunity Act prohibits creditors from discriminating against credit applicants on the basis of race, color, religion, national origin, sex, marital status, age (provided the applicant has the capacity to enter into a binding contract); because all or part of the applicant’s income derives from any public assistance program; or because the applicant has in good faith exercised any right under the Consumer Credit Protection Act.
-                </p>
-                <p className="mt-2">
-                  The federal agency that administers compliance with this law concerning this creditor is the Federal Trade Commission, Equal Credit Opportunity, Washington, DC 20580.
-                </p>
-              </div>
-
-              <div>
-                <strong className="text-af-navy block mb-1">Annual Percentage Rate (APR) &amp; Loan Term Details:</strong>
-                <p>
-                  Personal loan offers presented to consumers feature rate quotes from Advantage First Financial, LLC with Annual Percentage Rates (APR) ranging from 5.99% to 35.99% and loan terms ranging from 12 months to 72 months. Representative Example: For a personal loan of $10,000 with a 36-month term at 10.00% APR, the monthly payment would be approximately $322.67, and the total amount paid over the life of the loan would be $11,616.12. This example includes interest and assumes no additional fees.
+                  Business license and permit details applicable to Benny &amp; Penny Cleaning Services, LLC in its operating jurisdictions are available upon request. Contact us using the information below.
                 </p>
               </div>
             </div>
@@ -324,13 +201,13 @@ export default function LicensesPage() {
           <div className="p-8 rounded-3xl bg-mesh-dark text-white text-center sm:text-left flex flex-col sm:flex-row items-center justify-between gap-6 shadow-xl">
             <div className="space-y-1">
               <span className="text-xs font-extrabold uppercase tracking-widest text-af-blue-light">
-                Have a Compliance or Licensing Question?
+                Have a Question?
               </span>
               <h3 className="text-xl sm:text-2xl font-extrabold text-white">
-                Contact the Advantage First Compliance Department
+                Contact the B&amp;P Cleaners Team
               </h3>
               <p className="text-xs sm:text-sm text-white/70">
-                Email <a href="mailto:info@advantagefirst.com" className="text-af-blue-light underline font-mono">info@advantagefirst.com</a> or call <a href="tel:18003441202" className="text-af-blue-light underline font-mono">(800) 344-1202</a>
+                Email <a href="mailto:hello@bpcleaners.com" className="text-af-blue-light underline font-mono">hello@bpcleaners.com</a> or call <a href="tel:19092767631" className="text-af-blue-light underline font-mono">(909) 276-7631</a>
               </p>
             </div>
             <Link
@@ -338,7 +215,7 @@ export default function LicensesPage() {
               onClick={() => analytics.closingCtaApplyClick()}
               className="px-6 py-3 rounded-full bg-white text-af-navy hover:bg-af-blue-ice font-bold text-xs sm:text-sm transition-all shadow-md flex-shrink-0"
             >
-              Explore Loan Options
+              Get My Quote
             </Link>
           </div>
 
