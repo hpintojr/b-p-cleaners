@@ -202,7 +202,7 @@ export default function ArticlePage({ params }: ArticlePageProps) {
             className="inline-flex items-center gap-2 text-xs font-bold text-pv-muted hover:text-af-blue transition-colors group"
           >
             <ArrowLeft className="w-3.5 h-3.5 group-hover:-translate-x-1 transition-transform" />
-            <span>The Advantage Dispatch</span>
+            <span>The B&P Cleaning Journal</span>
           </Link>
 
           <div className="flex items-center gap-2">
@@ -432,7 +432,7 @@ export default function ArticlePage({ params }: ArticlePageProps) {
                   {section.table.caption && (
                     <div className="bg-af-navy text-white px-5 py-3 text-xs font-bold uppercase tracking-wider flex items-center justify-between">
                       <span>{section.table.caption}</span>
-                      <span className="text-[10px] text-white/70 font-mono">Advantage First Data</span>
+                      <span className="text-[10px] text-white/70 font-mono">B&P Cleaners Data</span>
                     </div>
                   )}
                   <div className="overflow-x-auto">
@@ -480,7 +480,7 @@ export default function ArticlePage({ params }: ArticlePageProps) {
                   <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
                     <div className="space-y-1">
                       <span className="text-xs font-bold text-af-red uppercase tracking-wider block">
-                        Monthly Dispatch
+                        Monthly Cleaning Tips
                       </span>
                       <h3 className="text-lg font-bold text-af-navy">
                         Enjoying this analysis? Subscribe to receive next month&apos;s issue.
@@ -538,7 +538,7 @@ export default function ArticlePage({ params }: ArticlePageProps) {
                 </h3>
               </div>
               <p className="text-xs text-pv-muted mb-4 leading-relaxed">
-                Advantage First Financial adheres to strict institutional editorial standards. All statistical claims, benchmark interest rates, and statutory provisions in this analysis are cited directly from official federal repositories, regulatory bodies, and industry data:
+                B&P Cleaners adheres to strict editorial standards. All claims and figures in this article are cited directly from reputable industry sources:
               </p>
               <div className="space-y-3">
                 {post.sources.map((source, idx) => (
@@ -599,7 +599,7 @@ export default function ArticlePage({ params }: ArticlePageProps) {
             <div className="space-y-2 text-center sm:text-left flex-grow">
               <div className="flex flex-wrap items-center justify-center sm:justify-start gap-2">
                 <h3 className="font-display text-lg font-bold text-af-navy">
-                  Published by the {post.author.name}
+                  Published by {post.author.name}
                 </h3>
                 <span className="text-[10px] font-bold text-af-blue bg-af-blue-ice px-2.5 py-0.5 rounded-full border border-af-blue/20">
                   {post.author.role}
@@ -616,7 +616,7 @@ export default function ArticlePage({ params }: ArticlePageProps) {
             <div className="flex items-center gap-2 text-pv-muted">
               <ShieldCheck className="w-4 h-4 text-trust-green flex-shrink-0" />
               <span>
-                <strong className="text-af-navy font-semibold">Regulatory Review:</strong> Verified by the {post.reviewer?.name || 'Advantage First Lending & Compliance Desk'}.
+                <strong className="text-af-navy font-semibold">Editorial Review:</strong> Verified by the {post.reviewer?.name || 'B&P Cleaners Editorial Team'}.
               </span>
             </div>
             <span className="text-[11px] font-semibold text-trust-green bg-trust-green-light px-2.5 py-1 rounded-full border border-trust-green/20">
@@ -630,13 +630,13 @@ export default function ArticlePage({ params }: ArticlePageProps) {
           <div className="relative z-10 flex flex-col sm:flex-row items-center justify-between gap-8">
             <div className="space-y-3">
               <span className="text-xs font-bold text-af-red uppercase tracking-wider block">
-                Take Strategic Action Today
+                Ready When You Are
               </span>
               <h3 className="font-display text-2xl sm:text-3xl font-extrabold tracking-tight">
-                Ready to Lower Your Monthly Payments?
+                Ready for a Spotless Space?
               </h3>
               <p className="text-xs sm:text-sm text-white/80 max-w-lg leading-relaxed">
-                Check personalized consolidation loan options up to $100,000 with zero impact to your credit score.
+                Get an instant online quote in under 60 seconds — no upfront fees, no obligation.
               </p>
             </div>
 
@@ -644,22 +644,22 @@ export default function ArticlePage({ params }: ArticlePageProps) {
               <Link
                 href="/#estimator-anchor"
                 onClick={() => analytics.articleCtaClick(post.slug, 'check_options_cta')}
-                className="px-8 py-4 rounded-full bg-gradient-to-r from-af-red to-[#E63935] hover:from-[#C02926] hover:to-af-red text-white font-bold text-sm shadow-lg shadow-af-red/30 transition-all duration-150 text-center"
+                className="px-8 py-4 rounded-full bg-gradient-to-r from-af-red to-[#10B981] hover:from-af-red-hover hover:to-af-red text-white font-bold text-sm shadow-lg shadow-af-red/30 transition-all duration-150 text-center"
               >
-                Check My Options Online
+                Get My Instant Quote
               </Link>
               <a
-                href="tel:18003441202"
+                href="tel:19092767631"
                 onClick={() => analytics.articleCtaClick(post.slug, 'call_cta')}
                 className="px-6 py-4 rounded-full bg-white/10 hover:bg-white/20 text-white font-bold text-sm border border-white/20 transition-all text-center"
               >
-                (800) 344-1202
+                (909) 276-7631
               </a>
             </div>
           </div>
         </section>
 
-        {/* Related Posts: Up Next in The Dispatch */}
+        {/* Related Posts */}
         {relatedPosts.length > 0 && (
           <section className="mt-20 pt-10 border-t border-af-blue-ice/80">
             <div className="flex items-center justify-between mb-8">
@@ -668,7 +668,7 @@ export default function ArticlePage({ params }: ArticlePageProps) {
                   Keep Reading
                 </span>
                 <h3 className="font-display text-2xl font-extrabold text-af-navy">
-                  Up Next in The Dispatch
+                  Up Next
                 </h3>
               </div>
               <Link
