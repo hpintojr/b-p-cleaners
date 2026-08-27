@@ -44,7 +44,7 @@ export default function Navbar({ onEstimatorClick }: NavbarProps) {
   return (
     <header
       id="site-header"
-      className="sticky top-0 z-50 w-full bg-white/95 backdrop-blur-xl border-b border-af-blue-ice shadow-[0_4px_20px_-4px_rgba(24,52,55,0.08)] transition-all duration-200"
+      className="sticky top-0 z-50 w-full bg-white/95 backdrop-blur-xl border-b border-af-blue-ice shadow-[0_4px_20px_-4px_rgba(26,29,31,0.08)] transition-all duration-200"
     >
       {/* Top micro-announcement bar */}
       <div className="bg-gradient-to-r from-af-navy-deep via-af-navy to-af-blue text-white py-1.5 px-4 text-xs">
@@ -69,12 +69,12 @@ export default function Navbar({ onEstimatorClick }: NavbarProps) {
             </div>
             {/* Desktop: phone link | Mobile: hamburger toggle */}
             <a
-              href="tel:15550101234"
+              href="tel:19092767631"
               onClick={() => analytics.navbarCallClick('desktop')}
               className="hidden lg:flex font-bold text-white hover:text-af-blue-light transition-colors items-center gap-1"
             >
               <Phone className="w-3 h-3 text-af-blue-cyan" />
-              (555) 010-1234
+              (909) 276-7631
             </a>
             <button
               onClick={() => setIsOpen(!isOpen)}
@@ -99,7 +99,7 @@ export default function Navbar({ onEstimatorClick }: NavbarProps) {
         id="header-scroll-progressbar"
       >
         <div
-          className="h-full bg-gradient-to-r from-af-blue via-[#C9A05C] to-af-red transition-all duration-75 ease-out shadow-[0_0_8px_rgba(185,139,61,0.5)]"
+          className="h-full bg-gradient-to-r from-af-blue via-[#34D399] to-af-red transition-all duration-75 ease-out shadow-[0_0_8px_rgba(16,185,129,0.5)]"
           style={{ width: `${scrollProgress}%` }}
         />
       </div>
@@ -159,7 +159,7 @@ export default function Navbar({ onEstimatorClick }: NavbarProps) {
 
             {/* Phone Link */}
             <a
-              href="tel:15550101234"
+              href="tel:19092767631"
               onClick={() => analytics.navbarCallClick('desktop')}
               className="flex items-center gap-2.5 px-4.5 py-2.5 rounded-full bg-af-blue border border-af-blue/80 text-white hover:bg-af-blue/90 transition-all duration-200 group whitespace-nowrap shadow-xs"
               id="nav-phone-link"
@@ -168,7 +168,7 @@ export default function Navbar({ onEstimatorClick }: NavbarProps) {
                 <Phone className="w-4 h-4" />
               </div>
               <span className="text-base sm:text-[17px] font-extrabold font-mono tracking-tight text-white">
-                (555) 010-1234
+                (909) 276-7631
               </span>
             </a>
 
@@ -176,7 +176,7 @@ export default function Navbar({ onEstimatorClick }: NavbarProps) {
             {onEstimatorClick ? (
               <button
                 onClick={() => { analytics.navbarApplyClick('desktop'); onEstimatorClick(); }}
-                className="group relative inline-flex items-center gap-2.5 px-7 py-3.5 sm:py-4 rounded-full bg-gradient-to-r from-af-red to-[#B98B3D] text-white font-bold text-base tracking-wide shadow-[0_8px_20px_-4px_rgba(141,98,37,0.35)] hover:shadow-[0_12px_28px_-4px_rgba(141,98,37,0.45)] transition-all duration-200 hover:-translate-y-0.5 active:translate-y-0 active:scale-[0.98] overflow-hidden"
+                className="group relative inline-flex items-center gap-2.5 px-7 py-3.5 sm:py-4 rounded-full bg-gradient-to-r from-af-red to-[#10B981] text-white font-bold text-base tracking-wide shadow-[0_8px_20px_-4px_rgba(13,148,136,0.35)] hover:shadow-[0_12px_28px_-4px_rgba(13,148,136,0.45)] transition-all duration-200 hover:-translate-y-0.5 active:translate-y-0 active:scale-[0.98] overflow-hidden"
                 id="nav-cta-btn"
               >
                 <span>Get a Quote</span>
@@ -188,7 +188,7 @@ export default function Navbar({ onEstimatorClick }: NavbarProps) {
               <Link
                 href="/#estimator-anchor"
                 onClick={() => analytics.navbarApplyClick('desktop')}
-                className="group relative inline-flex items-center gap-2.5 px-7 py-3.5 sm:py-4 rounded-full bg-gradient-to-r from-af-red to-[#B98B3D] text-white font-bold text-base tracking-wide shadow-[0_8px_20px_-4px_rgba(141,98,37,0.35)] hover:shadow-[0_12px_28px_-4px_rgba(141,98,37,0.45)] transition-all duration-200 hover:-translate-y-0.5 active:translate-y-0 active:scale-[0.98] overflow-hidden"
+                className="group relative inline-flex items-center gap-2.5 px-7 py-3.5 sm:py-4 rounded-full bg-gradient-to-r from-af-red to-[#10B981] text-white font-bold text-base tracking-wide shadow-[0_8px_20px_-4px_rgba(13,148,136,0.35)] hover:shadow-[0_12px_28px_-4px_rgba(13,148,136,0.45)] transition-all duration-200 hover:-translate-y-0.5 active:translate-y-0 active:scale-[0.98] overflow-hidden"
                 id="nav-cta-btn"
               >
                 <span>Get a Quote</span>
@@ -204,13 +204,13 @@ export default function Navbar({ onEstimatorClick }: NavbarProps) {
             <Link
               href="/#estimator-anchor"
               onClick={(e) => { analytics.navbarApplyClick('mobile'); handleApplyClick(e); }}
-              className="glow-btn flex items-center justify-center px-3 py-2.5 rounded-full bg-gradient-to-r from-af-red to-[#B98B3D] text-white font-bold text-xs tracking-wide whitespace-nowrap shadow-md active:scale-95 transition-all"
+              className="glow-btn flex items-center justify-center px-3 py-2.5 rounded-full bg-gradient-to-r from-af-red to-[#10B981] text-white font-bold text-xs tracking-wide whitespace-nowrap shadow-md active:scale-95 transition-all"
               id="mobile-prequalify-btn"
             >
               Get a Quote
             </Link>
             <a
-              href="tel:15550101234"
+              href="tel:19092767631"
               onClick={() => analytics.navbarCallClick('mobile')}
               className="flex-shrink-0 flex items-center justify-center w-11 h-11 rounded-full bg-af-red text-white shadow-md active:scale-95 transition-transform"
               aria-label="Call B&amp;P Cleaners"
@@ -265,7 +265,7 @@ export default function Navbar({ onEstimatorClick }: NavbarProps) {
             <div className="h-[1px] bg-af-blue-ice my-1" />
 
             <a
-              href="tel:15550101234"
+              href="tel:19092767631"
               onClick={() => analytics.navbarCallClick('mobile')}
               className="flex items-center gap-4 p-4 rounded-2xl bg-af-blue-soft border border-af-blue-ice shadow-sm"
               id="mobile-menu-phone-call"
@@ -278,7 +278,7 @@ export default function Navbar({ onEstimatorClick }: NavbarProps) {
                   Call for a Free Quote
                 </span>
                 <span className="block text-xl font-bold font-mono text-pv-primary mt-0.5">
-                  (555) 010-1234
+                  (909) 276-7631
                 </span>
               </div>
             </a>
@@ -289,7 +289,7 @@ export default function Navbar({ onEstimatorClick }: NavbarProps) {
                 setIsOpen(false);
                 handleApplyClick(e);
               }}
-              className="w-full py-4 rounded-full bg-gradient-to-r from-af-red to-[#B98B3D] text-white font-bold text-base tracking-wide shadow-lg shadow-af-red/25 hover:shadow-xl transition-all duration-200 text-center flex items-center justify-center gap-2"
+              className="w-full py-4 rounded-full bg-gradient-to-r from-af-red to-[#10B981] text-white font-bold text-base tracking-wide shadow-lg shadow-af-red/25 hover:shadow-xl transition-all duration-200 text-center flex items-center justify-center gap-2"
               id="mobile-menu-cta-btn"
             >
               <span>Get a Quote</span>
