@@ -23,31 +23,31 @@ export default function BenefitChecklist() {
 
   const benefits: BenefitItem[] = [
     {
-      id: 'quick-approvals',
-      title: 'Quick Approvals',
-      highlight: 'As fast as 24 hrs',
-      description: 'Streamlined digital application with rapid decisioning so you move forward fast.',
+      id: 'instant-quote',
+      title: 'Instant Online Quote',
+      highlight: 'Under 60 seconds',
+      description: 'Tell us your property type, size, and rooms — get a real price range immediately, no call required.',
       icon: <Zap className="w-4 h-4 text-af-blue" />,
     },
     {
-      id: 'flexible-options',
-      title: 'Amounts up to $100,000',
-      highlight: 'Tailored limits',
-      description: 'Find loans structured for loan consolidation, home remodels, or major purchases.',
+      id: 'flexible-scheduling',
+      title: 'One-Time or Recurring',
+      highlight: 'Weekly, bi-weekly, or monthly',
+      description: 'Book a single deep clean or set up a recurring maintenance plan with a discount for regular visits.',
       icon: <Sliders className="w-4 h-4 text-af-blue" />,
     },
     {
-      id: 'competitive-rates',
-      title: 'Fixed Rates from 5.99% APR',
-      highlight: 'Lock in certainty',
-      description: 'Predictable fixed monthly payments with zero surprise rate hikes for the full term.',
+      id: 'vetted-cleaners',
+      title: 'Vetted, Experienced Cleaners',
+      highlight: 'Insured & background-checked',
+      description: 'Every cleaner on our network brings their own supplies and years of residential and commercial experience.',
       icon: <CheckCircle2 className="w-4 h-4 text-trust-green" />,
     },
     {
-      id: 'no-hidden-fees',
-      title: 'No Prepayment Penalties',
-      highlight: '100% transparent',
-      description: 'Clear terms with zero hidden fees. Pay off your balance early at any time with no charge.',
+      id: 'no-surprises',
+      title: 'No Hidden Fees',
+      highlight: '100% transparent pricing',
+      description: 'Your quoted range reflects the final bill unless the scope changes — confirmed before we ever show up.',
       icon: <ShieldCheck className="w-4 h-4 text-af-red" />,
     }
   ];
@@ -57,16 +57,16 @@ export default function BenefitChecklist() {
       <div>
         <div className="flex items-center gap-2 mb-4">
           <span className="text-[11px] font-extrabold tracking-wider text-pv-muted uppercase">
-            The Advantage First Difference
+            The B&amp;P Cleaners Difference
           </span>
           <div className="h-[1px] flex-1 bg-gradient-to-r from-af-blue-ice to-transparent" />
         </div>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-3.5" id="benefit-grid-2col">
-          {benefits.map((benefit, idx) => (
-            <div 
-              key={benefit.id} 
-              className="group p-3.5 rounded-2xl bg-white border border-af-blue-ice/80 hover:border-af-blue/40 shadow-[0_2px_10px_-2px_rgba(29,49,95,0.04)] hover:shadow-[0_8px_20px_-4px_rgba(15,117,188,0.12)] transition-all duration-200 hover:-translate-y-0.5 card-hover-bar"
+          {benefits.map((benefit) => (
+            <div
+              key={benefit.id}
+              className="group p-3.5 rounded-2xl bg-white border border-af-blue-ice/80 hover:border-af-blue/40 shadow-[0_2px_10px_-2px_rgba(24,52,55,0.05)] hover:shadow-[0_8px_20px_-4px_rgba(185,139,61,0.12)] transition-all duration-200 hover:-translate-y-0.5 card-hover-bar"
               id={`benefit-item-${benefit.id}`}
             >
               <div className="flex gap-3 items-start">
