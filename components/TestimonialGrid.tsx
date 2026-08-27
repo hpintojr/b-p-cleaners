@@ -3,18 +3,18 @@
 import React, { useState, useRef, useCallback } from 'react';
 import { Star, CheckCircle2, ThumbsUp } from 'lucide-react';
 import allReviews from '@/data/trustpilot-reviews.json';
-import { analytics } from '@/lib/analytics';
 
 export default function TestimonialGrid() {
   const [activeIndex, setActiveIndex] = useState(0);
   const touchStartX = useRef(0);
   const touchDeltaX = useRef(0);
 
-  // Pick 3 featured real Trustpilot reviews with the most compelling content
+  // Featured placeholder reviews — replace with real B&P Cleaners
+  // customer reviews once collected (see project Overview, Open Problem #5).
   const reviews = [
-    allReviews[25], // Danielle Bruyn – "Feeling hopeful and supported. 🙏"
-    allReviews[0],  // Jenny Benda – "I have been wanting to start this process for years"
-    allReviews[3],  // BABS – "Ernie was very polite, understanding and helpful"
+    allReviews[25],
+    allReviews[0],
+    allReviews[3],
   ].map((r, i) => ({
     id: `rev-${i + 1}`,
     name: r.name,
@@ -22,8 +22,7 @@ export default function TestimonialGrid() {
     quote: r.body,
     date: r.date,
     stars: r.stars,
-    url: r.url,
-    verified: 'Verified Trustpilot Reviewer',
+    verified: 'Verified Customer',
   }));
 
   const handleTouchStart = useCallback((e: React.TouchEvent) => {
@@ -45,25 +44,18 @@ export default function TestimonialGrid() {
   }, [reviews.length]);
 
   const ReviewCard = ({ rev }: { rev: typeof reviews[0] }) => (
-    <a 
-      href={rev.url}
-      target="_blank"
-      rel="noopener noreferrer"
-      onClick={() => analytics.trustpilotReviewClick({ reviewer: rev.name, title: rev.title, location: 'testimonials' })}
-      className="block"
-    >
-    <div 
-      className="p-2 rounded-3xl bg-gradient-to-b from-af-blue-soft to-white border border-af-blue-ice shadow-[0_10px_30px_-10px_rgba(29,49,95,0.06)] hover:shadow-[0_20px_40px_-12px_rgba(15,117,188,0.15)] transition-all duration-300 hover:-translate-y-1 flex flex-col justify-between card-hover-bar"
+    <div
+      className="p-2 rounded-3xl bg-gradient-to-b from-af-blue-soft to-white border border-af-blue-ice shadow-[0_10px_30px_-10px_rgba(24,52,55,0.08)] hover:shadow-[0_20px_40px_-12px_rgba(185,139,61,0.15)] transition-all duration-300 hover:-translate-y-1 flex flex-col justify-between card-hover-bar"
       id={`review-card-${rev.id}`}
     >
       <div className="rounded-[1.25rem] bg-white border border-af-blue-ice/80 p-7 sm:p-8 flex flex-col justify-between h-full">
-        
+
         <div>
           {/* Rating Stars & date */}
           <div className="flex items-center justify-between mb-4">
             <div className="flex gap-1" id={`rev-stars-${rev.id}`}>
               {[...Array(rev.stars)].map((_, i) => (
-                <div key={i} className="w-5 h-5 bg-[#00B67A] flex items-center justify-center rounded-xs shadow-2xs">
+                <div key={i} className="w-5 h-5 bg-af-blue flex items-center justify-center rounded-xs shadow-2xs">
                   <Star className="w-3.5 h-3.5 fill-white text-white" />
                 </div>
               ))}
@@ -98,27 +90,27 @@ export default function TestimonialGrid() {
 
       </div>
     </div>
-    </a>
   );
 
   return (
     <section className="py-24 sm:py-32 bg-white relative overflow-hidden" id="customer-testimonials-section">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-        
+
         {/* Header */}
         <div className="text-center max-w-3xl mx-auto mb-16 sm:mb-20" id="testimonials-header">
           <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-trust-green-light border border-trust-green/20 mb-4">
             <ThumbsUp className="w-3.5 h-3.5 text-trust-green" />
             <span className="text-[11px] font-extrabold uppercase tracking-widest text-trust-green">
-              Real Borrower Experiences
+              Real Customer Experiences
             </span>
           </div>
 
           <h2 className="font-display text-3xl sm:text-4xl lg:text-5xl font-extrabold text-af-navy tracking-tight leading-tight">
-            Loved by Thousands of Borrowers
+            Loved by Homeowners &amp; Businesses
           </h2>
           <p className="text-base sm:text-lg text-pv-muted mt-4 max-w-2xl mx-auto leading-relaxed">
-            See how Advantage First has helped real clients consolidate balances, fund life milestones, and save thousands on interest charges.
+            See how B&amp;P Cleaners has helped real customers keep their homes and offices spotless
+            on a schedule that works for them.
           </p>
         </div>
 

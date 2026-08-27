@@ -2,7 +2,7 @@
 
 import React from 'react';
 import Link from 'next/link';
-import { FileText, Search, BadgeCheck, ChevronRight, ArrowRight, ShieldCheck, Zap } from 'lucide-react';
+import { FileText, CalendarCheck, Sparkles as SparklesIcon, ChevronRight, ArrowRight, ShieldCheck, Zap } from 'lucide-react';
 import { analytics } from '@/lib/analytics';
 
 interface ProcessStepsProps {
@@ -13,61 +13,62 @@ export default function ProcessSteps({ onApplyClick }: ProcessStepsProps) {
   const steps = [
     {
       number: '01',
-      title: 'Fast Online Inquiry',
-      subtitle: 'Takes Just 2 Minutes',
-      badge: 'Zero Credit Impact',
+      title: 'Get Your Instant Quote',
+      subtitle: 'Takes Just 60 Seconds',
+      badge: 'No Call Required',
       icon: <FileText className="w-6 h-6 text-af-blue" />,
-      description: 'Tell us how much you need (up to $100,000) and your primary goal — loan consolidation, home improvement, or personal expense. No tedious paperwork required.',
+      description: 'Tell us your property type, square footage, room count, service frequency, and any add-ons. See your price range immediately.',
     },
     {
       number: '02',
-      title: 'Instant Lender Matching',
-      subtitle: 'Multiple Competing Offers',
-      badge: 'Transparent Comparison',
-      icon: <Search className="w-6 h-6 text-af-red" />,
-      description: 'We evaluate your request against Advantage First direct loan solutions and our trusted lender network (including SoFi, Prosper, Upgrade, Best Egg) to unlock your highest approval odds and lowest APR rates.',
+      title: 'Book Your Time Slot',
+      subtitle: 'Pick a Date That Works',
+      badge: 'Flexible Scheduling',
+      icon: <CalendarCheck className="w-6 h-6 text-af-red" />,
+      description: 'Choose a one-time visit or set up recurring service — weekly, bi-weekly, or monthly — and confirm your appointment.',
     },
     {
       number: '03',
-      title: 'Direct Funding & Freedom',
-      subtitle: 'Fast Direct Deposit',
-      badge: 'As fast as 24hrs',
-      icon: <BadgeCheck className="w-6 h-6 text-trust-green" />,
-      description: 'Select your preferred loan term (up to 72 months), e-sign your loan agreement, and receive direct deposit into your bank account. Predictable fixed monthly payments start.',
+      title: 'Enjoy a Spotless Space',
+      subtitle: 'Vetted Cleaner Dispatched',
+      badge: 'Insured & Background-Checked',
+      icon: <SparklesIcon className="w-6 h-6 text-trust-green" />,
+      description: 'A fully vetted independent cleaner arrives on schedule. You’re only billed after the job is completed to your satisfaction.',
     },
   ];
 
   return (
-    <section className="py-24 sm:py-32 bg-white relative overflow-hidden" id="program-process-steps-section">
+    <section className="py-24 sm:py-32 bg-white relative overflow-hidden" id="how-it-works-section">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-        
+
         {/* Section Header */}
         <div className="text-center max-w-3xl mx-auto mb-16 sm:mb-20" id="process-section-header">
           <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-af-blue-soft border border-af-blue-ice mb-4">
             <Zap className="w-3.5 h-3.5 text-af-blue" />
             <span className="text-[11px] font-extrabold uppercase tracking-widest text-af-navy">
-              Simple 3-Step Journey
+              Simple 3-Step Booking
             </span>
           </div>
 
           <h2 className="font-display text-3xl sm:text-4xl lg:text-5xl font-extrabold text-af-navy tracking-tight leading-tight">
-            How Getting a Loan Works with Advantage First
+            How Booking with B&amp;P Cleaners Works
           </h2>
           <p className="text-base sm:text-lg text-pv-muted mt-4 max-w-2xl mx-auto leading-relaxed">
-            We’ve eliminated traditional banking friction. Apply once, compare personalized offers from top lenders, and fund your goals with total clarity.
+            No phone tag, no in-home estimate visit required. Get your price, pick your slot, and
+            we’ll handle the rest.
           </p>
         </div>
 
         {/* 3 Step Cards with Double-Bezel Architecture */}
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 relative" id="process-steps-grid">
           {steps.map((step, idx) => (
-            <div 
-              key={step.number} 
-              className="relative p-2 rounded-3xl bg-gradient-to-b from-af-blue-soft to-white border border-af-blue-ice shadow-[0_10px_30px_-10px_rgba(29,49,95,0.06)] hover:shadow-[0_20px_40px_-12px_rgba(15,117,188,0.15)] transition-all duration-300 hover:-translate-y-1 flex flex-col justify-between card-hover-bar overflow-visible"
+            <div
+              key={step.number}
+              className="relative p-2 rounded-3xl bg-gradient-to-b from-af-blue-soft to-white border border-af-blue-ice shadow-[0_10px_30px_-10px_rgba(24,52,55,0.08)] hover:shadow-[0_20px_40px_-12px_rgba(185,139,61,0.15)] transition-all duration-300 hover:-translate-y-1 flex flex-col justify-between card-hover-bar overflow-visible"
               id={`process-card-${step.number}`}
             >
               <div className="rounded-[1.25rem] bg-white border border-af-blue-ice/80 p-7 sm:p-8 flex flex-col justify-between h-full">
-                
+
                 <div>
                   {/* Step Top Row */}
                   <div className="flex items-center justify-between mb-6">
@@ -98,14 +99,14 @@ export default function ProcessSteps({ onApplyClick }: ProcessStepsProps) {
                 </div>
 
                 <div className="mt-8 pt-4 border-t border-af-blue-ice/60 flex items-center justify-between text-xs text-pv-muted">
-                  <span className="font-semibold">Stage {step.number} of 03</span>
-                  {idx === 2 ? (
+                  <span className="font-semibold">Step {step.number} of 03</span>
+                  {idx === 0 ? (
                     <Link
                       href="/#estimator-anchor"
                       onClick={() => analytics.processGetRateClick()}
                       className="inline-flex items-center gap-1.5 px-4 py-2 rounded-full bg-af-red hover:bg-af-red/90 text-white text-xs font-bold shadow-md hover:shadow-lg transition-all duration-200 hover:-translate-y-0.5"
                     >
-                      Get My Rate
+                      Get My Quote
                       <ArrowRight className="w-3.5 h-3.5" />
                     </Link>
                   ) : (
@@ -130,7 +131,7 @@ export default function ProcessSteps({ onApplyClick }: ProcessStepsProps) {
           <div className="flex flex-col sm:flex-row items-center justify-center gap-3 text-xs text-pv-muted leading-relaxed">
             <ShieldCheck className="w-5 h-5 text-trust-green flex-shrink-0" />
             <p>
-              <strong className="text-af-navy font-bold">Transparent Lending Standards:</strong> Advantage First Financial LLC never charges advance pre-approval fees. All loan terms, APR rates, and repayment schedules are fully disclosed before acceptance.
+              <strong className="text-af-navy font-bold">Transparent Booking Standards:</strong> B&amp;P Cleaners never charges upfront fees. Your quoted price range, service scope, and schedule are fully confirmed before any card is charged.
             </p>
           </div>
         </div>

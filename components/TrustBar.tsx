@@ -2,7 +2,6 @@
 
 import React, { useState, useRef, useCallback } from 'react';
 import { ShieldCheck, Lock, Award, CheckCircle2, Star } from 'lucide-react';
-import { analytics } from '@/lib/analytics';
 
 export default function TrustBar() {
   const [activeIndex, setActiveIndex] = useState(0);
@@ -11,28 +10,28 @@ export default function TrustBar() {
 
   const trustFeatures = [
     {
-      id: 'tf-license',
+      id: 'tf-vetted',
       icon: <Award className="w-5 h-5 text-af-blue" />,
-      title: 'Licensed & Regulated',
-      desc: 'Registered through Utah & Texas Departments of Financial Institutions',
+      title: 'Vetted Cleaners',
+      desc: 'Every cleaner is interviewed, reference-checked, and background-checked before dispatch',
     },
     {
-      id: 'tf-rates',
+      id: 'tf-insured',
       icon: <ShieldCheck className="w-5 h-5 text-trust-green" />,
-      title: 'Locked Fixed APR',
-      desc: 'Predictable rates from 5.99% APR with zero variable payment shock',
+      title: 'Insured & Bonded',
+      desc: 'Every job is covered — no surprises if something goes wrong',
     },
     {
       id: 'tf-security',
       icon: <Lock className="w-5 h-5 text-af-red" />,
-      title: '256-Bit SSL Bank Encryption',
-      desc: 'Your sensitive personal & financial data is completely encrypted',
+      title: 'Secure Booking & Payment',
+      desc: 'Your contact and payment details are handled through encrypted, secure forms',
     },
     {
       id: 'tf-no-fees',
       icon: <CheckCircle2 className="w-5 h-5 text-af-blue-light" />,
-      title: 'Zero Prepayment Fees',
-      desc: 'Pay off your balance early at any point with zero financial penalty',
+      title: 'No Upfront Fees',
+      desc: 'You’re only billed after the cleaning is completed to your satisfaction',
     },
   ];
 
@@ -55,7 +54,7 @@ export default function TrustBar() {
   }, [trustFeatures.length]);
 
   const TrustCard = ({ tf }: { tf: typeof trustFeatures[0] }) => (
-    <div 
+    <div
       className="p-5 rounded-2xl bg-white/5 border border-white/10 hover:border-white/20 hover:bg-white/10 transition-all duration-200 shadow-xs"
       id={`compliance-card-${tf.id}`}
     >
@@ -75,28 +74,18 @@ export default function TrustBar() {
     <section className="bg-af-navy text-white py-16 relative overflow-hidden" id="compliance-trust-bar">
       {/* Background glow elements */}
       <div className="absolute inset-0 bg-mesh-dark pointer-events-none" />
-      
+
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-        
-        {/* Trustpilot Rating Banner — Custom Styled */}
-        <a 
-          href="https://www.trustpilot.com/review/adv1st.com" 
-          target="_blank" 
-          rel="noopener noreferrer"
-          onClick={() => analytics.trustpilotLinkClick('trustbar')}
-          className="p-4 sm:p-5 rounded-2xl bg-white/10 backdrop-blur-xl border border-white/15 mb-12 flex flex-col md:flex-row items-center justify-between gap-5 shadow-xl hover:bg-white/[0.12] transition-colors"
+
+        {/* Customer Rating Banner */}
+        <div
+          className="p-4 sm:p-5 rounded-2xl bg-white/10 backdrop-blur-xl border border-white/15 mb-12 flex flex-col md:flex-row items-center justify-between gap-5 shadow-xl"
         >
           <div className="flex items-center gap-4 sm:gap-5">
-            {/* Trustpilot Logo Badge */}
-            <div className="flex items-center gap-1.5 bg-[#00B67A] text-white px-3 py-1.5 rounded-lg font-bold text-sm shadow-md">
-              <Star className="w-4 h-4 fill-white text-white" />
-              <span>Trustpilot</span>
-            </div>
-
             {/* 5 Stars */}
             <div className="flex gap-1">
               {[...Array(5)].map((_, i) => (
-                <div key={i} className="w-6 h-6 bg-[#00B67A] flex items-center justify-center rounded-xs shadow-2xs">
+                <div key={i} className="w-6 h-6 bg-af-blue flex items-center justify-center rounded-xs shadow-2xs">
                   <Star className="w-4 h-4 fill-white text-white" />
                 </div>
               ))}
@@ -105,19 +94,19 @@ export default function TrustBar() {
             {/* Rating Text */}
             <div className="hidden sm:block">
               <span className="block text-sm font-bold text-white">
-                Rated 4.8 / 5.0 by Borrowers
+                Rated by Our Customers
               </span>
               <span className="block text-xs text-white/60 mt-0.5">
-                Verified reviews • Transparent lending partner network
+                Vetted cleaner network • Transparent, upfront pricing
               </span>
             </div>
           </div>
 
           <div className="flex items-center gap-3 text-xs font-semibold text-white/90 bg-white/10 px-4 py-2 rounded-full border border-white/10">
             <span className="w-2 h-2 rounded-full bg-trust-green animate-pulse" />
-            <span>State Regulatory Compliant</span>
+            <span>Insured &amp; Background-Checked</span>
           </div>
-        </a>
+        </div>
 
         {/* Desktop: 4-column grid */}
         <div className="hidden sm:grid grid-cols-2 lg:grid-cols-4 gap-6" id="compliance-badges-grid">
@@ -165,9 +154,10 @@ export default function TrustBar() {
         </div>
 
 
-        {/* Regulatory Disclosure Text */}
+        {/* Service Disclosure Text */}
         <div className="text-center mt-10 text-[11px] text-white/50 max-w-3xl mx-auto leading-relaxed border-t border-white/10 pt-6">
-          Advantage First Financial, LLC connects consumers with trusted loan providers. Rates range from 5.99% to 35.99% APR with terms from 12 to 72 months. Checking options does not affect credit scores.
+          Benny &amp; Penny Cleaning Services connects customers with vetted, insured independent
+          cleaning contractors. Instant quotes are estimates confirmed before your appointment.
         </div>
 
       </div>
